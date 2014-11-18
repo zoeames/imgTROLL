@@ -1,19 +1,43 @@
-.navbar.navbar-default(role='navigation')
-  .container
-    .navbar-header
-      button.navbar-toggle(data-toggle='collapse', data-target='#bs-navbar-collapse')
-        span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      a.navbar-brand(href='/') MEANr Template
-
-    .collapse.navbar-collapse#bs-navbar-collapse
-      ul.nav.navbar-nav.navbar-right(ng-hide='email')
-        li: a(ui-sref='home') Home
-        li: a(ui-sref='register') Register
-        li: a(ui-sref='login') Login
-      ul.nav.navbar-nav.navbar-right(ng-show='email')
-        li: a(ui-sref='home') Home
-        li: a(ui-sref='logout') {{email}}
-
+//- .navbar.navbar-default(role='navigation')
+//-   .container
+//-     .navbar-header
+//-       button.navbar-toggle(data-toggle='collapse', data-target='#bs-navbar-collapse')
+//-         span.sr-only Toggle navigation
+//-         span.icon-bar
+//-         span.icon-bar
+//-         span.icon-bar
+//-       a.navbar-brand(href='/') MEANr Template
+//- 
+//-     .collapse.navbar-collapse#bs-navbar-collapse
+//-       ul.nav.navbar-nav.navbar-right(ng-hide='email')
+//-         li: a(ui-sref='home') Home
+//-         li: a(ui-sref='register') Register
+//-         li: a(ui-sref='login') Login
+//-       ul.nav.navbar-nav.navbar-right(ng-show='email')
+//-         li: a(ui-sref='home') Home
+//-         li: a(ui-sref='logout') {{email}}
+nav.top-bar(data-topbar='', role='navigation')
+  ul.title-area
+    li.name
+      h1
+        a(href='#') Mike is Awesome
+    // Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone
+    li.toggle-topbar.menu-icon
+      a(href='#')
+        span Menu
+  section.top-bar-section
+    // Right Nav Section
+    ul.right
+      li.active
+        a(href='#') Right Button Active
+      li.has-dropdown
+        a(href='#') Right Button Dropdown
+        ul.dropdown
+          li
+            a(href='#') First link in dropdown
+          li.active
+            a(href='#') Active link in dropdown
+    // Left Nav Section
+    ul.left
+      li
+        a(href='#') Left Nav Button
