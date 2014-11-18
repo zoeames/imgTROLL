@@ -1,26 +1,42 @@
 'use strict';
 
 var requestWebsite = require('request'),
-    cheerio        = require('cheerio');
+    cheerio        = require('cheerio'),
+    _              = require('underscore');
 
 exports.crawl = {
   handler: function(request, reply){
     requestWebsite('http://www.ocharleys.com/', function(error, response, body){
       if (!error && response.statusCode === 200){
+
         var $ = cheerio.load(body),
-        anchorTags = $('a');
-        var keys = Object.keys(anchorTags),
-        //console.log(keys);
+        anchorTags = $('a'),
+        keys = Object.keys(anchorTags),
         a = keys.map(function(k){
-          return anchorTags[k].attribs;
+          return checkRoute(anchorTags[k].attribs);
         });
 
-        console.log(a);
+        a = _.compact(a);
+        a = _.uniq(a);
 
-        reply({a: anchorTags});
+        reply({a: a});
       }
     });
   }
 };
+
+function checkRoute(link){
+  var re = new RegExp(/^\/[a-zA-Z0-9]*/);
+
+  //check undefined
+  if(link === undefined){ return; }
+
+  if(re.test(link.href)){
+    //console.log(link.href.match(re)[0]);
+    return link.href.match(re)[0];
+  }else{
+    return;
+  }
+}
 
 
