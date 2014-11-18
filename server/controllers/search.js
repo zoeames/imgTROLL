@@ -5,9 +5,19 @@ var requestWebsite = require('request'),
 
 exports.crawl = {
   handler: function(request, reply){
-    requestWebsite('http://www.cnn.com', function(error, response, body){
+    requestWebsite('http://www.ocharleys.com/', function(error, response, body){
       if (!error && response.statusCode === 200){
-        reply(body);
+        var $ = cheerio.load(body),
+        anchorTags = $('a');
+        var keys = Object.keys(anchorTags),
+        //console.log(keys);
+        a = keys.map(function(k){
+          return anchorTags[k].attribs;
+        });
+
+        console.log(a);
+
+        reply({a: anchorTags});
       }
     });
   }
