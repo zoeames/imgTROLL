@@ -1,16 +1,19 @@
 'use strict';
 
-var port    = process.env.PORT,
-    db      = process.env.DB,
-    express = require('express'),
-    app     = express();
+var Hapi     = require('hapi'),
+    server   = new Hapi.Server(process.env.PORT),
+    routes   = require('./routes/routes'),
+    plugins  = require('./routes/plugins'),
+    mongoose = require('mongoose').connect(process.env.DB);
+    console.log(process.env.DB);
 
-require('./lib/config')(app);
-require('./routes/routes')(app, express);
+server.route(routes);
 
-require('./lib/mongodb')(db, function(){
-  app.listen(port);
+mongoose.connection.once('open', function(){
+    server.pack.register(plugins, function(){
+        server.start(function(){
+            server.log('info', 'Server running at: ' + server.info.uri);
+        });
+    });
 });
-
-module.exports = app;
 
