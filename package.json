@@ -22,7 +22,7 @@
     "start": "node server/index.js",
     "postinstall": "grunt deploy",
     "test": "mocha test --recursive -R spec --timeout 5000",
-    "syntax": "./node_modules/grunt-cli/bin/grunt build",
+    "syntax": "./node_modules/grunt-cli/bin/grunt build"
   },
   "config": {
     "blanket": {
