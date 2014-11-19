@@ -21,6 +21,4 @@ User.register = function(o, cb){
  });
 };
 
-
-
 module.exports = User;
