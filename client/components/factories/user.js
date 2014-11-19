@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  angular.module('')
+  angular.module('troll')
   .factory('User', ['$rootScope', '$http', '$localForage', function($rootScope, $http, $localForage){
     var _email;
 

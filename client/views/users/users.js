@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  angular.module('')
+  angular.module('troll')
   .controller('UsersCtrl', ['$scope', '$state', 'User', function($scope, $state, User){
     $('#email').focus();
     $scope.user = {};
@@ -37,4 +37,3 @@
     };
   }]);
 })();
-
