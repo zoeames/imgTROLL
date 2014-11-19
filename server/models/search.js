@@ -4,6 +4,7 @@ var mongoose       = require('mongoose'),
     requestWebsite = require('request'),
     cheerio        = require('cheerio'),
     _              = require('underscore'),
+//    wget           = require('wgetjs'),
     schema = new mongoose.Schema({name: String, mainUrl: String, images: [String]}),
     Search = mongoose.model('Search', schema);
 
@@ -29,7 +30,7 @@ Search.getLinks = function(website, cb){
   });
 };
 
-Search.getImages = function(website, cb){
+Search.getImgLinks = function(website, cb){
   website = removeEndingSlash(website);
   requestWebsite(website, function(error, response, body){
     if (!error && response.statusCode === 200){
@@ -43,7 +44,6 @@ Search.getImages = function(website, cb){
       console.log('images before map function', images);
       images = (images).map(function(img, index){
         var imgLink = website + img;
-//        imgLink = splitLink(imgLink);
         return imgLink;
       });
       cb(images);
@@ -80,11 +80,15 @@ function removeEndingSlash(website){
   }
 }
 
-//function splitLink(link){
-//  if(link.indexOf('?')){
-//    var linkA = link.split('?');
-//    return linkA[0];
-//  }else{
-//    return link;
-//  }
+//function downloadImg(photos){
+//  photos.map(function(photo, index){
+//    wget(photo);
+
+//    wget(photo, callback);
+
+//    wget({photo: photo, dest: __dirname + }, callback);
+
+//    wget({photo: photo, dry: true});
+
+//  });
 //}
