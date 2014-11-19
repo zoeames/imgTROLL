@@ -5,7 +5,7 @@ var home = require('../controllers/home'),
     user = require('../controllers/user');
 
 module.exports = [
-  {method: 'GET',    path: '/',           config: home.index},
+  //{method: 'GET',    path: '/',           config: home.index},
   {method: 'GET',    path: '/about',      config: home.about},
   {method: 'GET',    path: '/users',      config: user.users},
   {method: 'GET',    path: '/users/{id}', config: user.show},

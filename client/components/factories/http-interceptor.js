@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  angular.module('')
+  angular.module('troll')
   .factory('HttpInterceptor', ['$rootScope', '$q', function($rootScope, $q){
 
     function request(req){
@@ -27,4 +27,3 @@
     return {request:request, response:response, requestError:requestError, responseError:responseError};
   }]);
 })();
-

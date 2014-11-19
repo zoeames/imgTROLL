@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  angular.module('')
+  angular.module('troll')
   .directive('nsNav', [function(){
     var o = {};
 
