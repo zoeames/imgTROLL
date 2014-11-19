@@ -22,7 +22,6 @@ exports.login = {
             rep(user);
         });
     }
-
 };
 
 
