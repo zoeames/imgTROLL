@@ -12,7 +12,7 @@ exports.index = {
 exports.about = {
   description: 'About',
   notes: 'The About page',
-  tags:['home'],
+  tags:['about'],
   handler: function(request, reply){
     reply({data:'About Page'});
   }
