@@ -1,30 +1,22 @@
 'use strict';
 
-var mongoose = require('mongoose'),
-    bcrypt   = require('bcrypt'),
-    mongoose = require('mongoose'),
-    Schema   = mongoose.Schema;
-
-var userSchema = new Schema({email: String, password: String});
-var User = mongoose.model('User', userSchema);
+var mongoose   = require('mongoose'),
+    bcrypt     = require('bcrypt'),
+    UserSchema = new mongoose.Schema({email: String, password: String}),
+    User       = mongoose.model('User', UserSchema);
 
 
 User.register = function(o, cb){
- User.findOne({email:o.email}, function(err, user){
-  if(user || o.password.length < 3){return cb();}
-  var u = new User(o);
-  User.save(u, cb);
- });
+    this.findOne({email: o.email}, function(err, user){
+        if(user || o.password.length < 3 || err){return cb(err);}
+        o.password = bcrypt.hashSync(o.password, 10);
+        user = new User(o);
+        user.save(function(err){
+            cb(err, user);
+        });
+    });
 };
 
-User.login = function(o, cb){
- User.findOne({email:o.email}, function(err, user){
-  if(!user){return cb();}
-  var isOk = bcrypt.compareSync(o.password, user.password);
-  if(!isOk){return cb();}
-  cb(null, user);
- });
-};
 
 
 module.exports = User;
