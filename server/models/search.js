@@ -4,6 +4,7 @@ var mongoose       = require('mongoose'),
     requestWebsite = require('request'),
     cheerio        = require('cheerio'),
     _              = require('underscore'),
+    fs             = require('fs'),
     schema = new mongoose.Schema({name: String, mainUrl: String, images: [String]}),
     Search = mongoose.model('Search', schema);
 
@@ -29,8 +30,6 @@ Search.getLinks = function(website, cb){
   });
 };
 
-module.exports = Search;
-
 Search.getImages = function(website, cb){
   website = removeEndingSlash(website);
   requestWebsite(website, function(error, response, body){
@@ -54,12 +53,22 @@ Search.getImages = function(website, cb){
   });
 };
 
+Search.downloadFile = function(weblink, userId, root, index){
+  var dirName = 'client/assets/' + userId;
+
+  if(!fs.existsSync(dirName)){fs.mkdirSync(dirName);}
+  //fs.mkdirSync(dirName);
+
+  requestWebsite(weblink).pipe(fs.createWriteStream(dirName + '/' + index + '.png'));
+};
+
 
 module.exports = Search;
 
 //Parse homelinks into http links
 function checkRoute(link, root){
   var re = new RegExp(/^\/[a-zA-Z0-9\-\/]*/);
+
   //check undefined
   if(link === undefined){ return; }
 
