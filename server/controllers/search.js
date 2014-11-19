@@ -6,11 +6,13 @@ var Search = require('../models/search'),
 
 exports.crawl = {
   handler: function(request, reply){
-    Search.getLinks('http://thehackernews.com/', function(links){
-      async.each(links, linkIterator, function(err){
+    Search.getLinks('http://www.wendys.com/', function(links){
+      console.log('links in Search.getLinks', links);
+      async.each(links, linkIterator, function(err,links){
         if(err){
           reply('error');
         }else{
+          console.log('links in async func>>>>>>>', links);
           reply('success');
         }
       });
@@ -20,14 +22,15 @@ exports.crawl = {
 
 exports.saveFile = {
   handler: function(request, reply){
-    Search.downloadFile('http://www.old-radio.info/wp-content/uploads/2014/09/cute-cat.jpg', '1', 'cnn', 1);
+    Search.downloadFile('http://www.old-radio.info/wp-content/uploads/2014/09/cute-cat.jpg', '1', 'cnn', 3);
     reply('success');
   }
 };
 
+
 function linkIterator(link, cb){
-  Search.getImages(link, function(imageLinks){
-    //console.log('Links call: ', imageLinks);
+  Search.getImgLinks(link, function(imageLinks){
+    console.log('imageLinks in linkIterator>>>>>>>> ', imageLinks);
     cb(imageLinks);
   });
 }

@@ -13,6 +13,7 @@ var mongoose       = require('mongoose'),
 //CLASS METHODS
 Search.getLinks = function(website, cb){
   website = removeEndingSlash(website);
+  console.log('website in Search.getLinks>>>>>>', website);
   requestWebsite(website, function(error, response, body){
     if (!error && response.statusCode === 200){
 
@@ -25,7 +26,7 @@ Search.getLinks = function(website, cb){
 
       a = _.compact(a);
       a = _.uniq(a);
-
+      console.log('a in Search.getLinks>>>>>>>>>', a);
       cb(a);
     }
   });
@@ -55,9 +56,14 @@ Search.getImgLinks = function(website, cb){
 
 Search.downloadFile = function(weblink, userId, root, index){
   var dirName = 'client/assets/' + userId;
-  console.log('dirName in downloadFile>>>>>>>>', dirName);
+  console.log('root in downloadFile>>>>>>>>', root);
+  console.log('dirName in downloadFile before first check>>>>>>>>', dirName);
 
   if(!fs.existsSync(dirName)){fs.mkdirSync(dirName);}
+  dirName = dirName + '/' + root;
+  console.log('dirName in downloadFile after adding root>>>>>>>>', dirName);
+  if(!fs.existsSync(dirName)){fs.mkdirSync(dirName);}
+
   //fs.mkdirSync(dirName);
   console.log('writing to>>>>>>>>>>>>>> : ', (dirName + '/' + index + '.png'));
   requestWebsite(weblink).pipe(fs.createWriteStream(dirName + '/' + index + '.png'));
