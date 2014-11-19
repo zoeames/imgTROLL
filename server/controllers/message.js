@@ -3,8 +3,8 @@
  */
 'use strict';
 
-var Message = require('../models/message'),
-    User    = require('../models/user');
+var Message = require('../models/message');
+    //User    = require('../models/user');
 
 exports.send = {
     description: 'Sending message',
