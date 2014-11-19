@@ -1,0 +1,19 @@
+{
+  "_id" : {"$oid":"000000000000000000000001"},
+  "name":"Bob Boberson",
+  "age":25,
+  "location":"Nashville, TN",
+  "photo":"http://i2.wp.com/www.maas360.com/assets/Uploads/defaultUserIcon.png",
+  "email" : "bob@aol.com",
+  "password" : "$2a$10$XR.IQktUUujLBxed70GQn.jWY1wZ9ThM0Tar9wTqzkI4Uk1uP2Or2"
+}
+
+{
+"_id" : {"$oid":"000000000000000000000002"},
+"name":"Sue Smith",
+"age":22,
+"location":"New York, NY",
+"photo":"http://i2.wp.com/www.maas360.com/assets/Uploads/defaultUserIcon.png",
+"email" : "sue@aol.com",
+"password" : "$2a$10$XR.IQktUUujLBxed70GQn.jWY1wZ9ThM0Tar9wTqzkI4Uk1uP2Or2"
+}
