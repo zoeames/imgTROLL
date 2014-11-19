@@ -5,6 +5,7 @@ var mongoose       = require('mongoose'),
     cheerio        = require('cheerio'),
     _              = require('underscore'),
 //    wget           = require('wgetjs'),
+    fs             = require('fs'),
     schema = new mongoose.Schema({name: String, mainUrl: String, images: [String]}),
     Search = mongoose.model('Search', schema);
 
@@ -41,7 +42,7 @@ Search.getImgLinks = function(website, cb){
       });
       images = _.compact(images);
       images = _.uniq(images);
-      console.log('images before map function', images);
+      //console.log('images before map function', images);
       images = (images).map(function(img, index){
         var imgLink = website + img;
         return imgLink;
@@ -52,13 +53,22 @@ Search.getImgLinks = function(website, cb){
   });
 };
 
+Search.downloadFile = function(weblink, userId, root, index){
+  var dirName = 'client/assets/' + userId;
+  console.log('dirName in downloadFile>>>>>>>>', dirName);
+
+  if(!fs.existsSync(dirName)){fs.mkdirSync(dirName);}
+  //fs.mkdirSync(dirName);
+  console.log('writing to>>>>>>>>>>>>>> : ', (dirName + '/' + index + '.png'));
+  requestWebsite(weblink).pipe(fs.createWriteStream(dirName + '/' + index + '.png'));
+};
+
 
 module.exports = Search;
 
-
 //Parse homelinks into http links
 function checkRoute(link, root){
-  var re = new RegExp(/^\/[a-zA-Z0-9\-]*/);
+  var re = new RegExp(/^\/[a-zA-Z0-9\-\/]*/);
 
   //check undefined
   if(link === undefined){ return; }
