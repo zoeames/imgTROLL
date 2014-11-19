@@ -1,5 +1,6 @@
 'use strict';
 
+
 module.exports = [
   {
     plugin: require('good'),
@@ -12,5 +13,8 @@ module.exports = [
   },
   {
     plugin: require('lout')
+  },
+  {
+    plugin: require('hapi-auth-basic')
   }
 ];
