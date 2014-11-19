@@ -5,7 +5,6 @@ var Hapi     = require('hapi'),
     routes   = require('./routes/routes'),
     plugins  = require('./routes/plugins'),
     mongoose = require('mongoose').connect(process.env.DB);
-    console.log(process.env.DB);
 
 server.route(routes);
 
