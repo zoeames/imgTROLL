@@ -1,0 +1,24 @@
+doctype html
+html(ng-app='', lang='en')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title MEANr Template
+    link(href='/vendor/foundation/css/foundation.css', rel='stylesheet')
+    link(href='show.css', rel='stylesheet')
+  body
+    include ns-nav
+    #show-contain
+      //- .panel  
+      //-   h4 Show
+      div.row
+        div.small-5.large-4.columns.panel
+          .picture
+        div.small-1.large-1.columns
+        div.small-6.large-7.columns.panel
+          
+          
+  script
+    $(document).foundation();
+    
