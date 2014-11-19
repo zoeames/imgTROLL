@@ -1,36 +1,26 @@
 'use strict';
 
-var bcrypt = require('bcrypt'),
-    Mongo  = require('mongodb');
+ // name:       {type: String, required: true},
+  //age:    {type: Number, required: true},
+  //location:    {type: String, required: true}
 
-function User(){
-}
+var mongoose   = require('mongoose'),
+    bcrypt     = require('bcrypt'),
+    UserSchema = new mongoose.Schema({email: String, password: String}),
+    User       = mongoose.model('User', UserSchema);
 
-Object.defineProperty(User, 'collection', {
-  get: function(){return global.mongodb.collection('users');}
-});
-
-User.findById = function(id, cb){
-  var _id = Mongo.ObjectID(id);
-  User.collection.findOne({_id:_id}, cb);
-};
 
 User.register = function(o, cb){
-  User.collection.findOne({email:o.email}, function(err, user){
-    if(user || o.password.length < 3){return cb();}
-    o.password = bcrypt.hashSync(o.password, 10);
-    User.collection.save(o, cb);
+ this.findOne({email: o.email}, function(err, user){
+  if(user || o.password.length < 3 || err){return cb(err);}
+  o.password = bcrypt.hashSync(o.password, 10);
+  user = new User(o);
+  user.save(function(err){
+   cb(err, user);
   });
+ });
 };
 
-User.login = function(o, cb){
-  User.collection.findOne({email:o.email}, function(err, user){
-    if(!user){return cb();}
-    var isOk = bcrypt.compareSync(o.password, user.password);
-    if(!isOk){return cb();}
-    cb(null, user);
-  });
-};
+
 
 module.exports = User;
-
