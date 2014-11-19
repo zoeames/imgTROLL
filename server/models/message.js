@@ -3,7 +3,7 @@
  */
 
 var mongoose = require('mongoose'),
-    User     = require('./user'),
+    //User     = require('./user'),
     Schema   = mongoose.Schema,
     MessageSchema = new mongoose.Schema(
         {body: String, sender: {type: Schema.Types.ObjectId, ref: 'User'}, receiver: {type: Schema.Types.ObjectId, ref: 'User'}}),
