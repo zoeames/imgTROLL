@@ -31,10 +31,35 @@ Search.getLinks = function(website, cb){
 
 module.exports = Search;
 
+Search.getImages = function(website, cb){
+  website = removeEndingSlash(website);
+  requestWebsite(website, function(error, response, body){
+    if (!error && response.statusCode === 200){
+      var images = [],
+      $ = cheerio.load(body);
+      images = $('img').map(function(index, img){
+        return $(img).attr('src');
+      });
+      images = _.compact(images);
+      images = _.uniq(images);
+      //console.log('images before map function', images);
+      images = (images).map(function(img, index){
+        var imgLink = website + img;
+//      imgLink = splitLink(imgLink);
+        return imgLink;
+      });
+      cb(images);
+
+    }
+  });
+};
+
+
+module.exports = Search;
+
 //Parse homelinks into http links
 function checkRoute(link, root){
-  var re = new RegExp(/^\/[a-zA-Z0-9\-]*/);
-
+  var re = new RegExp(/^\/[a-zA-Z0-9\-\/]*/);
   //check undefined
   if(link === undefined){ return; }
 
@@ -55,4 +80,13 @@ function removeEndingSlash(website){
   }
 }
 
+
+//function splitLink(link){
+//  if(link.indexOf('?')){
+//    var linkA = link.split('?');
+//    return linkA[0];
+//  }else{
+//    return link;
+//  }
+//}
 
