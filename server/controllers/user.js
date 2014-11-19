@@ -47,6 +47,8 @@ exports.users = {
     notes: 'Users',
     tags:['Users'],
     handler: function(request, reply){
-        reply({data:'all Users'});
+        User.find().exec(function(err, users){
+            reply(users);
+        });
     }
 };
