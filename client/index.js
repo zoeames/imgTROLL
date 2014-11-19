@@ -8,11 +8,12 @@
     $stateProvider
     .state('home',      {url:'/',              templateUrl:'/views/home/home.html',         controller:'HomeCtrl'})
     .state('users',     {url:'/users',         templateUrl:'/views/users/users.html',       controller:'UsersCtrl'})
-    .state('register',  {url:'/register',      templateUrl:'/views/users/register.html', controller:'UsersCtrl'})
+    .state('register',  {url:'/register',      templateUrl:'/views/users/register.html',    controller:'UsersCtrl'})
     .state('login',     {url:'/login',         templateUrl:'/views/users/login.html',       controller:'UsersCtrl'})
     .state('logout',    {url:'/logout',        template:'',                                 controller:'UsersCtrl'})
-    .state('user',      {url:'/users/{id}',    templateUrl:'/views/users/show.html',        controller:'UsersCtrl'})
+    .state('show',      {url:'/users/{id}}',   template:'/views/show/show.html',            controller:'ShowCtrl'});
     .state('messages',  {url:'/messages/{id}', templateUrl:'/views/messages/messages.html', controller:'MsgCtrl'});
+
 
     $localForageProvider.config({name:'troll', storeName:'cache', version:1.0});
     $httpProvider.interceptors.push('HttpInterceptor');
