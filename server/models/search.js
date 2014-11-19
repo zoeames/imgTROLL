@@ -29,13 +29,7 @@ Search.getLinks = function(website, cb){
   });
 };
 
-
-
-
 module.exports = Search;
-
-
-
 
 //Parse homelinks into http links
 function checkRoute(link, root){
@@ -60,4 +54,5 @@ function removeEndingSlash(website){
     return website;
   }
 }
+
 
