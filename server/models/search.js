@@ -4,9 +4,13 @@ var mongoose       = require('mongoose'),
     requestWebsite = require('request'),
     cheerio        = require('cheerio'),
     _              = require('underscore'),
+//    wget           = require('wgetjs'),
     fs             = require('fs'),
     async          = require('async'),
-    schema = new mongoose.Schema({name: String, mainUrl: String, images: [String]}),
+    schema = new mongoose.Schema({
+      name: String,
+      mainUrl: {type: String, required: true},
+      images: [String]}),
     Search = mongoose.model('Search', schema);
 
 
@@ -21,10 +25,11 @@ Search.getLinks = function(website, cb){
       a = keys.map(function(k){
         return checkRoute(anchorTags[k].attribs, website);
       });
+//      console.log('a in Search.getLinks>>>>>>>>>', a);
 
       a = _.compact(a);
       a = _.uniq(a);
-
+//      console.log('a in Search.getLinks>>>>>>>>>', a);
       cb(a);
     }
   });
@@ -115,6 +120,12 @@ Search.downloadFile = function(weblink, userId, root, index, cb){
 
 };
 
+Search.urlValidate = function(site, cb){
+  requestWebsite(site, function(error, response, body){
+    cb(error);
+  });
+};
+
 module.exports = Search;
 
 
@@ -155,13 +166,15 @@ function removeEndingSlash(website){
   }
 }
 
+//function downloadImg(photos){
+//  photos.map(function(photo, index){
+//    wget(photo);
 
-//function splitLink(link){
-//  if(link.indexOf('?')){
-//    var linkA = link.split('?');
-//    return linkA[0];
-//  }else{
-//    return link;
-//  }
+//    wget(photo, callback);
+
+//    wget({photo: photo, dest: __dirname + }, callback);
+
+//    wget({photo: photo, dry: true});
+
+//  });
 //}
-
