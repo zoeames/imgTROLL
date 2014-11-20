@@ -5,13 +5,13 @@ var mongoose       = require('mongoose'),
     cheerio        = require('cheerio'),
     _              = require('underscore'),
     fs             = require('fs'),
+    async          = require('async'),
     schema = new mongoose.Schema({name: String, mainUrl: String, images: [String]}),
     Search = mongoose.model('Search', schema);
 
 
 //CLASS METHODS
 Search.getLinks = function(website, cb){
-  website = removeEndingSlash(website);
   requestWebsite(website, function(error, response, body){
     if (!error && response.statusCode === 200){
 
@@ -31,42 +31,95 @@ Search.getLinks = function(website, cb){
 };
 
 Search.getImages = function(website, cb){
-  website = removeEndingSlash(website);
   requestWebsite(website, function(error, response, body){
     if (!error && response.statusCode === 200){
       var images = [],
       $ = cheerio.load(body);
+
+      //get all the images
       images = $('img').map(function(index, img){
-        return $(img).attr('src');
+        return absImageRoute($(img).attr('src'), website);
       });
+
+      //compact and unique images only
       images = _.compact(images);
       images = _.uniq(images);
-      //console.log('images before map function', images);
-      images = (images).map(function(img, index){
-        var imgLink = website + img;
-//      imgLink = splitLink(imgLink);
-        return imgLink;
-      });
+
+      //callback with the image links
       cb(images);
 
     }
   });
 };
 
-Search.downloadFile = function(weblink, userId, root, index){
-  var dirName = 'client/assets/' + userId;
+Search.prototype.scrubImages = function(userId, bigCB){
+    var self = this;
+    this.mainUrl = removeEndingSlash(this.mainUrl);
 
-  if(!fs.existsSync(dirName)){fs.mkdirSync(dirName);}
-  //fs.mkdirSync(dirName);
 
-  requestWebsite(weblink).pipe(fs.createWriteStream(dirName + '/' + index + '.png'));
+    //begin scrubbing
+    Search.getLinks(this.mainUrl, function(links){
+      var index = 1;
+      async.forEach(links, function(link, cbOne){
+
+        Search.getImages(link, function(imageLinks){
+
+          async.forEach(imageLinks, function(link, cbTwo){
+            //download the link
+            Search.downloadFile(link, userId, self.name, index, function(imgPath){
+              self.images.push(imgPath);
+              cbTwo();
+            });
+
+            //increment global index
+            index++;
+
+          //INNER ASYNC
+          }, function(err){
+              cbOne();
+            });
+        }); //END OF Search.getImages
+
+      //OUTTER ASYNC
+      },function(err){
+        console.log('bigCB');
+        bigCB();
+      });
+    }); //END OF Search.getLinks
 };
 
+Search.downloadFile = function(weblink, userId, root, index, cb){
+  var dirName   = 'client/assets/' + userId,
+      imagePath = dirName + '/' + root,
+      absPath  = imagePath + '/' + index + '.png';
+
+  if(!fs.existsSync(dirName)){fs.mkdirSync(dirName);}
+  if(!fs.existsSync(imagePath)){fs.mkdirSync(imagePath);}
+
+  requestWebsite.head(weblink, function(err, res, body){
+    if(err){
+      cb(null);
+    }else{
+      console.log('content-type:', res.headers['content-type']);
+      console.log((/^image/).test(res.headers['content-type']));
+      if(!(/^image/).test(res.headers['content-type'])){
+        cb('');
+      }else{
+        requestWebsite(weblink).pipe(fs.createWriteStream(absPath))
+        .on('close', function(){
+          cb(absPath);
+        });
+      }
+    }
+  });
+
+};
 
 module.exports = Search;
 
-//Parse homelinks into http links
+
 function checkRoute(link, root){
+  //relative routes
   var re = new RegExp(/^\/[a-zA-Z0-9\-\/]*/);
 
   //check undefined
@@ -76,6 +129,19 @@ function checkRoute(link, root){
     return root + link.href.match(re)[0];
   }else{
     return;
+  }
+}
+
+function absImageRoute(link, root){
+  var re = new RegExp(/^\/[a-zA-Z0-9\-\/]*/);
+
+  //check undefined
+  if(link === undefined){ return; }
+
+  if(re.test(link)){
+    return root + link.match(re)[0];
+  }else{
+    return link;
   }
 }
 
