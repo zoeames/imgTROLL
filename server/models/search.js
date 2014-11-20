@@ -7,7 +7,10 @@ var mongoose       = require('mongoose'),
 //    wget           = require('wgetjs'),
     fs             = require('fs'),
     async          = require('async'),
-    schema = new mongoose.Schema({name: String, mainUrl: String, images: [String]}),
+    schema = new mongoose.Schema({
+      name: String,
+      mainUrl: {type: String, required: true},
+      images: [String]}),
     Search = mongoose.model('Search', schema);
 
 
@@ -26,7 +29,7 @@ Search.getLinks = function(website, cb){
 
       a = _.compact(a);
       a = _.uniq(a);
-      console.log('a in Search.getLinks>>>>>>>>>', a);
+//      console.log('a in Search.getLinks>>>>>>>>>', a);
       cb(a);
     }
   });
@@ -115,6 +118,12 @@ Search.downloadFile = function(weblink, userId, root, index, cb){
     }
   });
 
+};
+
+Search.urlValidate = function(site, cb){
+  requestWebsite(site, function(error, response, body){
+    cb(error);
+  });
 };
 
 module.exports = Search;
