@@ -83,6 +83,7 @@ Search.prototype.scrubImages = function(userId, bigCB){
       //OUTTER ASYNC
       },function(err){
         console.log('bigCB');
+        self.images = _.compact(self.images);
         bigCB();
       });
     }); //END OF Search.getLinks
@@ -100,8 +101,8 @@ Search.downloadFile = function(weblink, userId, root, index, cb){
     if(err){
       cb(null);
     }else{
-      console.log('content-type:', res.headers['content-type']);
-      console.log((/^image/).test(res.headers['content-type']));
+      //console.log('content-type:', res.headers['content-type']);
+      //console.log((/^image/).test(res.headers['content-type']));
       if(!(/^image/).test(res.headers['content-type'])){
         cb('');
       }else{
