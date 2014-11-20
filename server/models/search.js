@@ -137,9 +137,12 @@ function checkRoute(link, root){
   if(link === undefined){ return; }
 
   if(re.test(link.href)){
+    //append root to beginning of relative link
     return root + link.href.match(re)[0];
   }else{
-    return;
+    //if local link is already absolute, return as is
+    // TODO (/root/).test(link);
+    return ;
   }
 }
 
