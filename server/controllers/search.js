@@ -6,13 +6,14 @@ var Search = require('../models/search'),
 
 exports.crawl = {
   handler: function(request, reply){
-    Search.getLinks('http://www.wendys.com/', function(links){
-      console.log('links in Search.getLinks', links);
-      async.each(links, linkIterator, function(err,links){
+    Search.getLinks('http://mellowmushroom.com/', function(links){
+//      console.log('links in Search.getLinks', links);
+      async.each(links, linkIterator, function(err, linkArray){
+//        console.log('err in async function>>>>>>', err);
+        console.log('linkArray in async function>>>>>>', linkArray);
         if(err){
           reply('error');
         }else{
-          console.log('links in async func>>>>>>>', links);
           reply('success');
         }
       });
@@ -30,7 +31,7 @@ exports.saveFile = {
 
 function linkIterator(link, cb){
   Search.getImgLinks(link, function(imageLinks){
-    console.log('imageLinks in linkIterator>>>>>>>> ', imageLinks);
+//    console.log('links in linkIterator', imageLinks);
     cb(imageLinks);
   });
 }

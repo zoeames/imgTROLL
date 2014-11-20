@@ -23,6 +23,7 @@ Search.getLinks = function(website, cb){
       a = keys.map(function(k){
         return checkRoute(anchorTags[k].attribs, website);
       });
+//      console.log('a in Search.getLinks>>>>>>>>>', a);
 
       a = _.compact(a);
       a = _.uniq(a);
