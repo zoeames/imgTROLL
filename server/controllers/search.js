@@ -18,6 +18,7 @@ exports.crawl = {
         reply('scrubbed images!');
       });
     });
+
   }
 };
 
