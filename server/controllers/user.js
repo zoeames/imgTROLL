@@ -6,7 +6,7 @@ var Joi  = require('joi'),
 
 exports.register = {
     description: 'register',
-    notes: 'some register shit!',
+    notes: 'some register nonsense',
     handler: function(req, rep){
         User.register(req.payload, function(err, user){
             rep(user);
@@ -47,6 +47,8 @@ exports.users = {
     notes: 'Users',
     tags:['Users'],
     handler: function(request, reply){
-        reply({data:'all Users'});
+        User.find().exec(function(err, users){
+            reply(users);
+        });
     }
 };
