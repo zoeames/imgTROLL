@@ -54,13 +54,12 @@ Search.getImages = function(website, cb){
   });
 };
 
-Search.prototype.scrubImages = function(userId, bigCB){
+Search.prototype.scrubImages = function(website, userId, bigCB){
     var self = this;
-    this.mainUrl = removeEndingSlash(this.mainUrl);
-
+    website = removeEndingSlash(website);
 
     //begin scrubbing
-    Search.getLinks(this.mainUrl, function(links){
+    Search.getLinks(website, function(links){
       var index = 1;
       async.forEach(links, function(link, cbOne){
 
@@ -84,7 +83,7 @@ Search.prototype.scrubImages = function(userId, bigCB){
 
       //OUTTER ASYNC
       },function(err){
-        console.log('bigCB');
+        //console.log('bigCB');
         self.images = _.compact(self.images);
         bigCB();
       });
