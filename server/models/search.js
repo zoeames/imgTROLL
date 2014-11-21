@@ -123,7 +123,7 @@ Search.downloadFile = function(weblink, userId, root, index, cb){
   if(!fs.existsSync(dirName)){fs.mkdirSync(dirName);}
   if(!fs.existsSync(imagePath)){fs.mkdirSync(imagePath);}
 
-  if(index > 250){
+  if(index > 3){
     return cb(null);
   }
 
@@ -161,15 +161,20 @@ function checkRoute(link, root){
   var re = new RegExp(/^\/[a-zA-Z0-9\-\/]*/);
 
   //check undefined
-  if(link === undefined){ return; }
+  if(link === undefined || link.href === undefined){ return; }
 
   if(re.test(link.href)){
+    console.log('Adding ROOT to this>>>>>>>', link.href);
     //append root to beginning of relative link
     return root + link.href.match(re)[0];
   }else{
-    //if local link is already absolute, return as is
-    // TODO (/root/).test(link);
-    return ;
+    var rootTest = new RegExp(root);
+
+    // test if local link is already absolute
+    if(link.href.match(rootTest)){
+      console.log('link.href in checkRoute ELSE (return as is)>>>>>>>', link.href);
+      return(link.href);
+    }
   }
 }
 

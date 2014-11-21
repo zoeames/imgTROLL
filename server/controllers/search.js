@@ -6,7 +6,7 @@ var Search = require('../models/search'),
 
 exports.crawl = {
   handler: function(request, reply){
-    var site = 'http://www.espn.com/';
+    var site = 'http://thehackernews.com/';
 
     //TO BE REMOVED
 /*
@@ -16,15 +16,15 @@ exports.crawl = {
     });
 */
 
-    Search.urlValidate(site, function(err, xyz){
+    Search.urlValidate(site, function(err, success){
 //      console.log('Err in urlValidate>>>>>', err);
-//      console.log('1 in urlValidate>>>>>', xyz);
+//      console.log('Success in urlValidate>>>>>', success);
 
       if(err){
         reply('Error- invalid url');
       }else{
         var search = new Search({name: 'MySearch', mainUrl: site, images: []}),
-        urlsArray  = [site, 'http://www.ocharleys.com', 'http://www.cnn.com'];
+        urlsArray  = [site, 'http://www.ocharleys.com'];
 
         async.forEach(urlsArray, function(url, cb){
           search.scrubImages(url, '000000000000000000000001', function(err){
