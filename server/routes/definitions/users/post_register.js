@@ -19,7 +19,7 @@ module.exports = {
     var user = new User(request.payload);
     user.encrypt();
     user.save(function(err){
-      reply().code(err ? 401 : 200);
+      reply(user).code(err ? 401 : 200);
     });
   }
 };

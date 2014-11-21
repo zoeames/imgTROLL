@@ -21,7 +21,7 @@ module.exports = {
         request.auth.session.set(user);
         reply();
       }else {
-        reply().code(401);
+        reply(user).code(401);
       }
     });
   }
