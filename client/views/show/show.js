@@ -11,6 +11,8 @@
       $('.stuffContent').addClass('animated zoomIn');
     };
 
-
+    // $('#click_to_slide').click(function(){
+    //     $('#me_down').slideDown();
+    // });
   }]);
 })();
