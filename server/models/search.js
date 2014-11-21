@@ -73,7 +73,7 @@ Search.prototype.depthFinder = function(website, depth, cb){
   });
 };
 
-Search.prototype.scrubImages = function(website, userId, bigCB){
+Search.prototype.scrubImages = function(website, userId, baseSite, bigCB){
     var self = this;
     website = removeEndingSlash(website);
 
@@ -164,7 +164,6 @@ function checkRoute(link, root){
   if(link === undefined || link.href === undefined){ return; }
 
   if(re.test(link.href)){
-    console.log('Adding ROOT to this>>>>>>>', link.href);
     //append root to beginning of relative link
     return root + link.href.match(re)[0];
   }else{
@@ -172,7 +171,6 @@ function checkRoute(link, root){
 
     // test if local link is already absolute
     if(link.href.match(rootTest)){
-      console.log('link.href in checkRoute ELSE (return as is)>>>>>>>', link.href);
       return(link.href);
     }
   }

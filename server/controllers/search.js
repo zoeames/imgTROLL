@@ -27,7 +27,7 @@ exports.crawl = {
         urlsArray  = [site, 'http://www.ocharleys.com'];
 
         async.forEach(urlsArray, function(url, cb){
-          search.scrubImages(url, '000000000000000000000001', function(err){
+          search.scrubImages(url, '000000000000000000000001', site, function(err){
             cb();
           });
         }, function(){
