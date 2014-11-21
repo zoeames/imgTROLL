@@ -17,7 +17,7 @@ var mongoose       = require('mongoose'),
 
 //CLASS METHODS
 Search.getLinks = function(website, cb){
-  requestWebsite(website, function(error, response, body){
+  requestWebsite({url: website, timeout: 3000}, function(error, response, body){
     if (!error && response.statusCode === 200){
 
       var $ = cheerio.load(body),
@@ -36,7 +36,7 @@ Search.getLinks = function(website, cb){
 };
 
 Search.getImages = function(website, cb){
-  requestWebsite(website, function(error, response, body){
+  requestWebsite({url: website, timeout: 3000}, function(error, response, body){
     if (!error && response.statusCode === 200){
       var images = [],
       $ = cheerio.load(body);
@@ -61,7 +61,7 @@ Search.prototype.depthFinder = function(website, depth, cb){
   website = removeEndingSlash(website);
   var self  = this;
 
-  requestWebsite(website, function(error, response, body){
+  requestWebsite({url: website, timeout: 3000}, function(error, response, body){
     if(error){ console.log('Error: Not a valid link.'); return cb(); }
     var $ = cheerio.load(body),
     anchorTags = $('a'),
@@ -92,7 +92,8 @@ Search.prototype.scrubImages = function(website, userId, bigCB){
     website = removeEndingSlash(website);
 
     var timer = setTimeout(function(){
-      //console.log('>>>>>>>>>>>>>>>timer called');
+      self.images = _.uniq(self.images);
+      self.images = _.compact(self.images);
       bigCB();
       clearTimeout(timer);
     }, 30000);
@@ -107,10 +108,12 @@ Search.prototype.scrubImages = function(website, userId, bigCB){
           async.forEach(imageLinks, function(link, cbTwo){
             //download the link
             Search.downloadFile(link, userId, self.name, index, function(imgPath){
-              self.images.push(imgPath);
+              if(imgPath){
+                console.log(imgPath);
+                self.images.push(imgPath);
+              }
               cbTwo();
             });
-
             //increment global index
             index++;
 
@@ -122,7 +125,7 @@ Search.prototype.scrubImages = function(website, userId, bigCB){
 
       //OUTTER ASYNC
       },function(err){
-        //console.log('bigCB');
+        self.images = _.uniq(self.images);
         self.images = _.compact(self.images);
         clearTimeout(timer); //need to clear timer if this callback happens first
         bigCB();
@@ -138,23 +141,23 @@ Search.downloadFile = function(weblink, userId, root, index, cb){
   if(!fs.existsSync(dirName)){fs.mkdirSync(dirName);}
   if(!fs.existsSync(imagePath)){fs.mkdirSync(imagePath);}
 
-  if(index > 250){
+  if(index > 500){
     return cb(null);
   }
 
-  requestWebsite.head(weblink, function(err, res, body){
+  requestWebsite.head({url: weblink, timeout: 3000}, function(err, res, body){
     if(err){
-      cb(null);
+      return cb(null);
     }else{
       console.log('content-type:', res.headers['content-type']);
       //console.log((/^image/).test(res.headers['content-type']));
       if(!(/^image/).test(res.headers['content-type'])){
         cb('');
       }else{
-        requestWebsite(weblink).pipe(fs.createWriteStream(absPath))
+        requestWebsite({url: weblink, timeout: 3000}).pipe(fs.createWriteStream(absPath))
         .once('close', function(){
           cb(absPath);
-        });
+        }).setMaxListeners(20);
       }
     }
   });
