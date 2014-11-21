@@ -8,7 +8,7 @@ var Search  = require('../models/search'),
 exports.crawl = {
   handler: function(request, reply){
 
-    var site = 'http://www.ocharleys.com/',
+    var site = 'http://www.mcdonalds.com/',
 
     //TO BE REMOVED
 
