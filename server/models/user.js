@@ -9,7 +9,7 @@ UserSchema = new mongoose.Schema({
   username:  {type: String, required: true, validate: [usernameV, 'username length'], unique: true},
   password:  {type: String, required: true, validate: [passwordV, 'password length']},
   createdAt: {type: Date,  required: true, default: Date.now},
-  profilePic: {type: String, default: 'blah'}
+  profilePic: {type: String, default: 'http://i2.wp.com/www.maas360.com/assets/Uploads/defaultUserIcon.png'}
 });
 
 UserSchema.methods.encrypt = function(){
