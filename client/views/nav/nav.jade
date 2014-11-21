@@ -7,8 +7,9 @@ nav.top-bar(data-topbar, role="navigation", ng-controller='NavCtrl')
          a(href="/#/")
             span
    section.top-bar-section
-      ul.right(ng-hide='email')
+      ul.right(ng-hide='username')
          li: a(ui-sref='register') Register
          li: a(ui-sref='login') Login
-         li: a(ui-sref='home') Home
+         li: a(ui-sref='profile') Profile
+         li: a(ui-sref='profile') Users
          li: a.button(ng-click='logout()') Logout

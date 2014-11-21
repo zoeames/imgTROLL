@@ -19,9 +19,9 @@ module.exports = {
     User.login(request.payload, function(user){
       if(user){
         request.auth.session.set(user);
-        reply();
+        reply(user);
       }else {
-        reply(user).code(401);
+        reply().code(401);
       }
     });
   }
