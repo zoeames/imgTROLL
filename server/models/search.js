@@ -17,7 +17,7 @@ var mongoose       = require('mongoose'),
 
 //CLASS METHODS
 Search.getLinks = function(website, cb){
-  requestWebsite({url: website, timeout: 3000}, function(error, response, body){
+  requestWebsite({url: website}, function(error, response, body){
     if (!error && response.statusCode === 200){
 
       var $ = cheerio.load(body),
@@ -36,7 +36,7 @@ Search.getLinks = function(website, cb){
 };
 
 Search.getImages = function(website, cb){
-  requestWebsite({url: website, timeout: 3000}, function(error, response, body){
+  requestWebsite({url: website}, function(error, response, body){
     if (!error && response.statusCode === 200){
       var images = [],
       $ = cheerio.load(body);
@@ -61,7 +61,7 @@ Search.prototype.depthFinder = function(website, depth, cb){
   website = removeEndingSlash(website);
   var self  = this;
 
-  requestWebsite({url: website, timeout: 3000}, function(error, response, body){
+  requestWebsite({url: website}, function(error, response, body){
     if(error){ return cb(); }
     var $ = cheerio.load(body),
     anchorTags = $('a'),
@@ -146,7 +146,7 @@ Search.downloadFile = function(weblink, fileName, root, index, cb){
     return cb(null);
   }
 
-  requestWebsite.head({url: weblink, timeout: 3000}, function(err, res, body){
+  requestWebsite.head({url: weblink}, function(err, res, body){
     if(err){
       return cb(null);
     }else{
@@ -155,7 +155,7 @@ Search.downloadFile = function(weblink, fileName, root, index, cb){
       if(!(/^image/).test(res.headers['content-type'])){
         cb('');
       }else{
-        requestWebsite({url: weblink, timeout: 3000}).pipe(fs.createWriteStream(absPath))
+        requestWebsite({url: weblink}).pipe(fs.createWriteStream(absPath))
         .once('close', function(){
           cb(absPath);
         }).setMaxListeners(20);
