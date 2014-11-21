@@ -50,7 +50,12 @@
         return $http.get('/users');
       };
 
+      userobj.update = function(pic){
+        return $http.put('/profile', {profilePic: pic});
+      };
+
       return userobj;
+
     }]);
 
 })();

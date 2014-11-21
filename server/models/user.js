@@ -8,7 +8,8 @@ var mongoose = require('mongoose'),
 UserSchema = new mongoose.Schema({
   username:  {type: String, required: true, validate: [usernameV, 'username length'], unique: true},
   password:  {type: String, required: true, validate: [passwordV, 'password length']},
-  createdAt: {type: Date,  required: true, default: Date.now}
+  createdAt: {type: Date,  required: true, default: Date.now},
+  profilePic: {type: String, default: 'blah'}
 });
 
 UserSchema.methods.encrypt = function(){
@@ -26,7 +27,6 @@ UserSchema.statics.login = function(obj, cb){
     if(!isGood){
       return cb();
     }
-
     cb(user);
   });
 };
