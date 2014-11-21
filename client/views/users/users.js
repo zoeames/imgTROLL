@@ -2,20 +2,11 @@
   'use strict';
 
   angular.module('troll')
-  .controller('UsersCtrl', ['$scope', '$state', 'User', function($scope, $state, User){
-    $('#email').focus();
-    $scope.user = {};
-    $scope.mode = $state.current.name;
+    .controller('UsersCtrl', ['$scope', '$state', 'User', function($scope, $state, User){
+      $scope.user = {};
+      $scope.mode = $state.current.name;
 
-    if($scope.mode === 'logout'){
-      User.logout().then(function(){
-        toastr.success('User successfully logged out.');
-        $state.go('home');
-      });
-    }
-
-    $scope.submit = function(){
-      if($scope.userForm.$valid){
+      $scope.submit = function(){
         if($scope.mode === 'register'){
           User.register($scope.user).then(function(response){
             toastr.success('User successfully registered.');
@@ -26,14 +17,15 @@
           });
         }else{
           User.login($scope.user).then(function(response){
-            toastr.success('User successfully logged in.');
+            console.log('THIS IS THE RESPONSE...', response);
+            User.setUser(response.data);
+            toastr.success('User successfully authenticated.');
             $state.go('home');
           }, function(){
-            toastr.error('Error during login.');
+            toastr.error('Error during authentication.');
             $scope.user = {};
           });
         }
-      }
-    };
-  }]);
+      };
+    }]);
 })();
