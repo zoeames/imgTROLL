@@ -7,8 +7,8 @@ module.exports = [
   {method: 'delete', path: '/logout',        config: require('../definitions/users/delete_logout')},
   //{method: 'GET',    path: '/about',         config: ''},
   //{method: 'GET',    path: '/users',         config: ''},
-  {method: 'get',    path: '/profile',    config: require('../definitions/users/profile')}
-  //{method: 'GET',  path: '/profile'  , config: require('./config/users/get_profile')},
+  {method: 'get',    path: '/profile',    config: require('../definitions/users/profile')},
+  {method: 'get',    path: '/users',    config: require('../definitions/users/showall')}
   //{method: 'POST',   path: '/messages',      config: ''},
   //{method: 'GET',    path: '/messages',      config: ''},
   //{method: 'GET',    path: '/messages/{id}', config: ''}

@@ -46,6 +46,10 @@
         userobj.user = user;
       };
 
+      userobj.getAll = function(){
+        return $http.get('/users');
+      };
+
       return userobj;
     }]);
 
