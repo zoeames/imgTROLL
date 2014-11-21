@@ -16,6 +16,10 @@
         return $http.delete('/logout');
       }
 
-      return {register:register, login:login, logout:logout};
+      function update(pic){
+        return $http.put('/profile', {profilePic: pic});
+      }
+
+      return {register:register, login:login, logout:logout, update:update};
     }]);
 })();
