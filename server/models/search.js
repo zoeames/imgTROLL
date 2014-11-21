@@ -4,19 +4,20 @@ var mongoose       = require('mongoose'),
     requestWebsite = require('request'),
     cheerio        = require('cheerio'),
     _              = require('underscore'),
-//    wget           = require('wgetjs'),
     fs             = require('fs'),
     async          = require('async'),
     schema = new mongoose.Schema({
       name: String,
       mainUrl: {type: String, required: true},
-      images: [String]}),
+      images: [String],
+      urlsArray: Array
+    }),
     Search = mongoose.model('Search', schema);
 
 
 //CLASS METHODS
 Search.getLinks = function(website, cb){
-  requestWebsite(website, function(error, response, body){
+  requestWebsite({url: website, timeout: 3000}, function(error, response, body){
     if (!error && response.statusCode === 200){
 
       var $ = cheerio.load(body),
@@ -25,18 +26,17 @@ Search.getLinks = function(website, cb){
       a = keys.map(function(k){
         return checkRoute(anchorTags[k].attribs, website);
       });
-//      console.log('a in Search.getLinks>>>>>>>>>', a);
 
       a = _.compact(a);
       a = _.uniq(a);
-//      console.log('a in Search.getLinks>>>>>>>>>', a);
+
       cb(a);
     }
   });
 };
 
 Search.getImages = function(website, cb){
-  requestWebsite(website, function(error, response, body){
+  requestWebsite({url: website, timeout: 3000}, function(error, response, body){
     if (!error && response.statusCode === 200){
       var images = [],
       $ = cheerio.load(body);
@@ -59,7 +59,10 @@ Search.getImages = function(website, cb){
 
 Search.prototype.depthFinder = function(website, depth, cb){
   website = removeEndingSlash(website);
-  requestWebsite(website, function(error, response, body){
+  var self  = this;
+
+  requestWebsite({url: website, timeout: 3000}, function(error, response, body){
+    if(error){ console.log('Error: Not a valid link.'); return cb(); }
     var $ = cheerio.load(body),
     anchorTags = $('a'),
     keys = Object.keys(anchorTags),
@@ -68,8 +71,19 @@ Search.prototype.depthFinder = function(website, depth, cb){
     });
 
     a = _.compact(a);
-    //console.log(a);
-    cb();
+    a = _.uniq(a);
+
+    //push the extracted linked into a urlsArray
+    self.urlsArray.push(a);
+
+    if(depth >= 0){
+      async.forEach(a, function(url, cbOne){
+        self.depthFinder(url, depth - 1, cbOne);
+      }, function(err){
+          //console.log('Depth: ', depth);
+          cb(self.urlsArray);
+      });
+    }
   });
 };
 
@@ -78,10 +92,11 @@ Search.prototype.scrubImages = function(website, userId, baseSite, bigCB){
     website = removeEndingSlash(website);
 
     var timer = setTimeout(function(){
-      //console.log('>>>>>>>>>>>>>>>timer called');
+      self.images = _.uniq(self.images);
+      self.images = _.compact(self.images);
       bigCB();
       clearTimeout(timer);
-    }, 15000);
+    }, 30000);
 
     //begin scrubbing
     Search.getLinks(website, function(links){
@@ -93,10 +108,12 @@ Search.prototype.scrubImages = function(website, userId, baseSite, bigCB){
           async.forEach(imageLinks, function(link, cbTwo){
             //download the link
             Search.downloadFile(link, userId, self.name, index, function(imgPath){
-              self.images.push(imgPath);
+              if(imgPath){
+                console.log(imgPath);
+                self.images.push(imgPath);
+              }
               cbTwo();
             });
-
             //increment global index
             index++;
 
@@ -108,8 +125,9 @@ Search.prototype.scrubImages = function(website, userId, baseSite, bigCB){
 
       //OUTTER ASYNC
       },function(err){
-        //console.log('bigCB');
+        self.images = _.uniq(self.images);
         self.images = _.compact(self.images);
+        clearTimeout(timer); //need to clear timer if this callback happens first
         bigCB();
       });
     }); //END OF Search.getLinks
@@ -123,23 +141,23 @@ Search.downloadFile = function(weblink, userId, root, index, cb){
   if(!fs.existsSync(dirName)){fs.mkdirSync(dirName);}
   if(!fs.existsSync(imagePath)){fs.mkdirSync(imagePath);}
 
-  if(index > 3){
+  if(index > 50){
     return cb(null);
   }
 
-  requestWebsite.head(weblink, function(err, res, body){
+  requestWebsite.head({url: weblink, timeout: 3000}, function(err, res, body){
     if(err){
-      cb(null);
+      return cb(null);
     }else{
-      //console.log('content-type:', res.headers['content-type']);
+      console.log('content-type:', res.headers['content-type']);
       //console.log((/^image/).test(res.headers['content-type']));
       if(!(/^image/).test(res.headers['content-type'])){
         cb('');
       }else{
-        requestWebsite(weblink).pipe(fs.createWriteStream(absPath))
-        .on('close', function(){
+        requestWebsite({url: weblink, timeout: 3000}).pipe(fs.createWriteStream(absPath))
+        .once('close', function(){
           cb(absPath);
-        });
+        }).setMaxListeners(20);
       }
     }
   });
@@ -177,8 +195,7 @@ function checkRoute(link, root){
 }
 
 function extractDepthRoute(link, root){
-  var rootReg     = new RegExp(root),
-  relative = new RegExp(/^\/[a-zA-Z0-9\-\/]*/);
+  var rootReg = new RegExp(root);
 
   //check if undefined
   if(link === undefined || link.href === undefined){ return; }
@@ -186,8 +203,12 @@ function extractDepthRoute(link, root){
   //append root site to relative link
   link = absImageRoute(link.href);
 
-  if(!(link).match(rootReg) && relative.test(link)){
-    return link;
+  if(!(link).match(rootReg)){
+    if(!(/^http:\/\//).test(link)){
+      return;
+    }else{
+      return link;
+    }
   }else{
     return;
   }
