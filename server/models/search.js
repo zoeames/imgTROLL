@@ -57,9 +57,31 @@ Search.getImages = function(website, cb){
   });
 };
 
+Search.prototype.depthFinder = function(website, depth, cb){
+  website = removeEndingSlash(website);
+  requestWebsite(website, function(error, response, body){
+    var $ = cheerio.load(body),
+    anchorTags = $('a'),
+    keys = Object.keys(anchorTags),
+    a = keys.map(function(k){
+      return extractDepthRoute(anchorTags[k].attribs, website);
+    });
+
+    a = _.compact(a);
+    //console.log(a);
+    cb();
+  });
+};
+
 Search.prototype.scrubImages = function(website, userId, bigCB){
     var self = this;
     website = removeEndingSlash(website);
+
+    var timer = setTimeout(function(){
+      //console.log('>>>>>>>>>>>>>>>timer called');
+      bigCB();
+      clearTimeout(timer);
+    }, 15000);
 
     //begin scrubbing
     Search.getLinks(website, function(links){
@@ -101,6 +123,10 @@ Search.downloadFile = function(weblink, userId, root, index, cb){
   if(!fs.existsSync(dirName)){fs.mkdirSync(dirName);}
   if(!fs.existsSync(imagePath)){fs.mkdirSync(imagePath);}
 
+  if(index > 250){
+    return cb(null);
+  }
+
   requestWebsite.head(weblink, function(err, res, body){
     if(err){
       cb(null);
@@ -126,6 +152,7 @@ Search.urlValidate = function(site, cb){
   });
 };
 
+
 module.exports = Search;
 
 
@@ -143,6 +170,23 @@ function checkRoute(link, root){
     //if local link is already absolute, return as is
     // TODO (/root/).test(link);
     return ;
+  }
+}
+
+function extractDepthRoute(link, root){
+  var rootReg     = new RegExp(root),
+  relative = new RegExp(/^\/[a-zA-Z0-9\-\/]*/);
+
+  //check if undefined
+  if(link === undefined || link.href === undefined){ return; }
+
+  //append root site to relative link
+  link = absImageRoute(link.href);
+
+  if(!(link).match(rootReg) && relative.test(link)){
+    return link;
+  }else{
+    return;
   }
 }
 
@@ -168,16 +212,3 @@ function removeEndingSlash(website){
     return website;
   }
 }
-
-//function downloadImg(photos){
-//  photos.map(function(photo, index){
-//    wget(photo);
-
-//    wget(photo, callback);
-
-//    wget({photo: photo, dest: __dirname + }, callback);
-
-//    wget({photo: photo, dry: true});
-
-//  });
-//}
