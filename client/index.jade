@@ -1,17 +1,55 @@
 doctype html
-html(ng-app='troll', lang='en')
-  head
-    meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    meta(name='viewport', content='width=device-width, initial-scale=1')
-    title MEANr Template
-    include views/master/stylesheets
-  body
-    div(ns-nav)
-    include views/master/body
-    include views/master/footer
-    include views/master/scripts
+//if IE 9
+  html.lt-ie10(lang='en')
+html.no-js(ng-app='troll', lang='en')
+   head
+      meta(charset='utf-8')
+      meta(name='viewport', content='width=device-width, initial-scale=1.0')
+      title Troll< img >
+      link(rel='stylesheet', href='/vendor/foundation/css/normalize.css')
+      link(rel='stylesheet', href='/vendor/foundation/css/foundation.css')
+      link(href='/vendor/fontawesome/css/font-awesome.css', rel='stylesheet')
+      link(rel='stylesheet', href='/vendor/toastr/toastr.css')
+      link(rel='stylesheet', href='/index.css')
+      link(href='/components/directives/ns-nav/ns-nav.css', rel='stylesheet')
+      link(href='assets/keyframes.css', rel='stylesheet')
+      link(href='assets/style.css', rel='stylesheet')
+      script(src='/vendor/foundation/js/vendor/modernizr.js')
+   body
+      .row
+         .small-12.columns
+            include views/nav/nav
+      .row
+         .small-12.columns
+            div(ui-view)
 
-  script
-    $(document).foundation();
 
+      footer.navbar-default.navbar-fixed-bottom
+        .container
+          .row
+            .col-xs-12.foot
+              p: small Copyright &copy; 2014 Nashville Software School. All Rights Reserved.
+
+      script(src='/vendor/jquery/dist/jquery.js')
+      script(src='/vendor/foundation/js/foundation.min.js')
+      script(src='/vendor/angular/angular.js')
+      script(src='/vendor/angular-ui-router/release/angular-ui-router.js')
+      script(src='/vendor/localforage/dist/localforage.js')
+      script(src='/vendor/angular-localforage/dist/angular-localForage.js')
+      script(src='/vendor/underscore/underscore.js')
+      script(src='/vendor/toastr/toastr.js')
+
+      script(src='/config/toastr.js')
+      script(src='/index.js')
+      script(src='/models/user.js')
+      script(src='/views/users/users.js')
+      script(src='/views/nav/nav.js')
+      script(src='/views/home/home.js')
+      script(src='/views/messages/messages.js')
+      script(src='/views/profile/profile.js')
+      script(src='/views/showall/showall.js')
+      script(src='/views/show/show.js')
+      script(src='/views/users/profile.js')
+
+      script.
+         $(document).foundation();
