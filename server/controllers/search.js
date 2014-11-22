@@ -7,8 +7,8 @@ var Search  = require('../models/search'),
 
 exports.crawl = {
   handler: function(request, reply){
-    var site = 'http://www.cnn.com/',
-    search = new Search({name: 'MySearch', mainUrl: site, images: [], limit: 0, statistic: []});
+    var site = 'http://www.espn.com/',
+    search = new Search({name: 'MySearch', mainUrl: site, images: [], limit: 0, statistics: []});
 
 
     search.depthFinder(search.mainUrl, 1, function(depthUrls){
@@ -32,7 +32,7 @@ exports.crawl = {
               });
           }, function(){
            search.save(function(err, s){
-             reply('scrubbed images!');
+             reply(search.statistics);
            });
           });
         }

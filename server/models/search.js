@@ -87,7 +87,7 @@ Search.prototype.scrubImages = function(website, userId, bigCB){
       self.images = _.compact(self.images);
       bigCB();
       clearTimeout(timer);
-    }, 60000);
+    }, 10000);
 
     Search.getImages(website, function(imageLinks){
       self.statistics.push({url: website, images: imageLinks.length || 0});
