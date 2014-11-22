@@ -7,23 +7,26 @@ var Search  = require('../models/search'),
 
 exports.crawl = {
   handler: function(request, reply){
-    var site = 'http://www.ocharleys.com/',
-    search = new Search({name: 'MySearch', mainUrl: site, images: [], limit: 0});
+    var site = 'http://www.cnn.com/',
+    search = new Search({name: 'MySearch', mainUrl: site, images: [], limit: 0, statistic: []});
 
 
-    search.depthFinder(search.mainUrl, 2, function(depthUrls){
+    search.depthFinder(search.mainUrl, 1, function(depthUrls){
       Search.urlValidate(site, function(err, xyz){
         if(err){
           reply('Error- invalid url');
         }else{
           //flatten the array of arrays
           var urlsArray  = _.uniq(_.flatten(depthUrls));
-          if(urlsArray.length > 200){
-            urlsArray = urlsArray.splice(0, 200);
+          if(urlsArray.length > 75){
+            urlsArray = urlsArray.splice(0, 75);
+          }else if(!urlsArray.length){
+            reply('no images founds');
           }
 
           //God help us all.
-          async.forEachLimit(urlsArray, 30, function(url, cb){
+          async.forEachLimit(urlsArray, 20, function(url, cb){
+            console.log(url);
               search.scrubImages(url, '000000000000000000000001', function(err){
                   cb();
               });

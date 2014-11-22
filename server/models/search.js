@@ -11,12 +11,13 @@ var mongoose       = require('mongoose'),
       mainUrl: {type: String, required: true},
       images: [String],
       urlsArray: Array,
-      limit : Number
+      limit: Number,
+      statistics: Array
     }),
     Search = mongoose.model('Search', schema);
 
 Search.getImages = function(website, cb){
-  requestWebsite(website, function(error, response, body){
+  requestWebsite({url: website, timeout: 3000}, function(error, response, body){
     if (!error && response.statusCode === 200){
       var images = [],
       $ = cheerio.load(body);
@@ -34,6 +35,9 @@ Search.getImages = function(website, cb){
       cb(images);
 
     }
+  }).on('error', function(){
+    console.log('Image timeout.');
+    return;
   });
 };
 
@@ -67,6 +71,9 @@ Search.prototype.depthFinder = function(website, depth, cb){
           cb(self.urlsArray);
       });
     }
+  }).on('error', function(){
+    console.log('Anchor tag timeout');
+    return;
   });
 };
 
@@ -74,18 +81,24 @@ Search.prototype.scrubImages = function(website, userId, bigCB){
     var self = this;
     website = removeEndingSlash(website);
 
-    Search.getImages(website, function(imageLinks){
-      async.forEachLimit(imageLinks, 5, function(link, cb){
-        self.downloadFile(link, userId, self.name, function(imgPath){
-          if(imgPath){
-            self.images.push(imgPath);
-          }
-          cb();
+    //give em' their data anyways
+    var timer = setTimeout(function(){
+      self.images = _.uniq(self.images);
+      self.images = _.compact(self.images);
+      bigCB();
+      clearTimeout(timer);
+    }, 60000);
 
+    Search.getImages(website, function(imageLinks){
+      self.statistics.push({url: website, images: imageLinks.length || 0});
+      async.forEachLimit(imageLinks, 5, function(link, cb){
+        self.downloadFile(link, userId, self.name, function(){
+          cb(null);
         });
       }, function(err){
           self.images = _.uniq(self.images);
           self.images = _.compact(self.images);
+          clearTimeout(timer);
           bigCB();
         });
     });
@@ -94,13 +107,14 @@ Search.prototype.scrubImages = function(website, userId, bigCB){
 Search.prototype.downloadFile = function(weblink, userId, root, cb){
   var dirName   = 'client/assets/' + userId,
       imagePath = dirName + '/' + root,
-      absPath  = imagePath + '/' + this.limit + '.png';
+      absPath  = imagePath + '/' + this.limit + '.png',
+      self = this;
 
   if(!fs.existsSync(dirName)){fs.mkdirSync(dirName);}
   if(!fs.existsSync(imagePath)){fs.mkdirSync(imagePath);}
 
   //prevent too many images
-  if(this.limit > 1000){
+  if(this.limit > 300){
     //console.log('limit reached');
     return cb(null);
   }else{
@@ -112,13 +126,19 @@ Search.prototype.downloadFile = function(weblink, userId, root, cb){
       //console.log('content-type:', res.headers['content-type']);
       return cb(null);
     }else{
-      requestWebsite({url: weblink, followRedirect: false, maxRedirects: 0, timeout: 1000}).pipe(fs.createWriteStream(absPath))
+      self.images.push(absPath);
+
+      requestWebsite({url: weblink, followRedirect: false, maxRedirects: 0, timeout: 3000}).pipe(fs.createWriteStream(absPath))
       .on('close', function(){
-        cb(absPath);
+        cb(null);
+      })
+      .on('error', function(){
+         //error catching for requests
+         cb(null);
       });
     }
   }).on('error', function(){
-    //this is for catching timeouts
+    //error catching for headers
     cb(null);
   });
 
@@ -135,7 +155,14 @@ module.exports = Search;
 
 
 function extractDepthRoute(link, root){
-  var rootReg = new RegExp(root);
+  var rootReg = null;
+  try {
+    rootReg = new RegExp(root);
+  }
+  catch(error){
+    return;
+  }
+
 
   //check if undefined
   if(link === undefined || link.href === undefined){ return; }
