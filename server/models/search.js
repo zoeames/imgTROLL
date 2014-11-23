@@ -6,11 +6,11 @@ var mongoose       = require('mongoose'),
     _              = require('underscore'),
     fs             = require('fs'),
     async          = require('async'),
+    Site           = require('./site.js'),
     schema = new mongoose.Schema({
       name: String,
       mainUrl: {type: String, required: true},
-      images: [String],
-      urlsArray: Array
+      depths: Array
     }),
     Search = mongoose.model('Search', schema);
 
@@ -57,11 +57,14 @@ Search.getImages = function(website, cb){
   });
 };
 
-Search.prototype.depthFinder = function(website, depth, cb){
+Search.prototype.urlFinder = function(website, depth, cb){
+  if(depth < 0){
+    cb();
+  }
   website = removeEndingSlash(website);
   var self  = this;
 
-  requestWebsite({url: website}, function(error, response, body){
+  requestWebsite(website, function(error, response, body){
     if(error){ return cb(); }
     var $ = cheerio.load(body),
     anchorTags = $('a'),
@@ -76,14 +79,13 @@ Search.prototype.depthFinder = function(website, depth, cb){
     //push the extracted linked into a urlsArray
     self.urlsArray.push(a);
 
-    if(depth >= 0){
-      async.forEach(a, function(url, cbOne){
-        self.depthFinder(url, depth - 1, cbOne);
-      }, function(err){
-          //console.log('Depth: ', depth);
-          cb(self.urlsArray);
-      });
-    }
+
+    async.forEach(a, function(url, cbOne){
+      self.depthFinder(url, depth - 1, cbOne);
+    }, function(err){
+        //console.log('Depth: ', depth);
+        cb(self.urlsArray);
+    });
   });
 };
 
@@ -92,13 +94,6 @@ Search.prototype.scrubImages = function(website, userId, baseSite, bigCB){
     website = removeEndingSlash(website);
     var fileName = extractSiteFilename(website);
 
-/*    timer = setTimeout(function(){
-      self.images = _.uniq(self.images);
-      self.images = _.compact(self.images);
-      bigCB();
-      clearTimeout(timer);
-    }, 30000);
-*/
     //begin scrubbing
     Search.getLinks(website, function(links){
       var index = 1;
@@ -119,13 +114,13 @@ Search.prototype.scrubImages = function(website, userId, baseSite, bigCB){
             index++;
 
           //INNER ASYNC
-          }, function(err){
+        }, function(err, cbOne){
               cbOne();
             });
         }); //END OF Search.getImages
 
       //OUTTER ASYNC
-      },function(err){
+    },function(err, bigCB){
         self.images = _.uniq(self.images);
         self.images = _.compact(self.images);
 //        clearTimeout(timer); //need to clear timer if this callback happens first
@@ -146,7 +141,7 @@ Search.downloadFile = function(weblink, fileName, root, index, cb){
     return cb(null);
   }
 
-  requestWebsite.head({url: weblink}, function(err, res, body){
+  requestWebsite.head(weblink, function(err, res, body){
     if(err){
       return cb(null);
     }else{
@@ -155,10 +150,10 @@ Search.downloadFile = function(weblink, fileName, root, index, cb){
       if(!(/^image/).test(res.headers['content-type'])){
         cb('');
       }else{
-        requestWebsite({url: weblink}).pipe(fs.createWriteStream(absPath))
+        requestWebsite(weblink).pipe(fs.createWriteStream(absPath))
         .once('close', function(){
           cb(absPath);
-        }).setMaxListeners(20);
+        }).setMaxListeners(30);
       }
     }
   });
