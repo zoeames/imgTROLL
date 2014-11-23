@@ -18,7 +18,6 @@
     $scope.takePhoto = function(){
       takepicture();
       $scope.photo = photo.currentSrc;
-      debugger;
     };
 
 
@@ -26,7 +25,6 @@
       //console.log('scope.photo', JSON.stringify($scope.photo);
       User.update($scope.photo).then(function(response){
         $scope.photo = response.data.profilePic;
-        debugger;
         console.log('response', response);
         console.log('$scopeusserphoto', $scope.userPhoto);
       });
