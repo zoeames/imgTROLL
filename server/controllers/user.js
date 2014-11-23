@@ -42,7 +42,7 @@ exports.show = {
 };
 
 
-exports.users = {
+exports.getAll = {
     description: 'All registered users',
     notes: 'Users',
     tags:['Users'],
