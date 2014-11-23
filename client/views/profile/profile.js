@@ -5,8 +5,11 @@
   .controller('ProCtrl', ['$scope', 'User', '$http', function($scope, User, $http){
     var user = User.user;
     $scope.username=user.username;
+    $scope.age = user.age;
+    $scope.location = user.location;
+    $scope.email = user.email;
+    $scope.profilePic = user.profilePic;
     console.log('User.user . . . . ', User.user);
-    console.log($scope.username);
 
     $scope.toggleStuff = function(){
       $scope.hideStuff = !!!$scope.hideStuff;
