@@ -17,6 +17,8 @@
           });
         }else{
           User.login($scope.user).then(function(response){
+            console.log('THIS IS THE RESPONSE...', response);
+            User.setUser(response.data);
             toastr.success('User successfully authenticated.');
             $state.go('home');
           }, function(){
