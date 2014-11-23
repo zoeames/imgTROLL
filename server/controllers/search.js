@@ -7,7 +7,7 @@ var Search  = require('../models/search'),
 
 exports.crawl = {
   handler: function(request, reply){
-    var site = 'http://www.espn.com/',
+    var site = 'http://www.mcdonalds.com/',
     search = new Search({name: 'MySearch', mainUrl: site, images: [], limit: 0, statistics: []});
 
 
