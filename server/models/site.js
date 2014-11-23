@@ -3,9 +3,9 @@
 var mongoose    = require('mongoose'),
 //requestWebsite  = require('request'),
 //cheerio         = require('cheerio'),
-_               = require('underscore'),
-fs              = require('fs'),
-async           = require('async'),
+//_               = require('underscore'),
+//fs              = require('fs'),
+//async           = require('async'),
 schema = new mongoose.Schema({
   name: String,
   siteUrl: {type: String, required: true},
