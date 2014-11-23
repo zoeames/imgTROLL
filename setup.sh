@@ -22,18 +22,18 @@ npm install lout --save
 npm install joi --save
 
 # install new node development modules
-npm install bower --save
-npm install grunt --save
-npm install grunt-contrib-clean --save
-npm install grunt-contrib-copy --save
-npm install grunt-contrib-jade --save
-npm install grunt-contrib-jshint --save
-npm install grunt-contrib-less --save
-npm install grunt-contrib-watch --save
-npm install grunt-jscs --save
-npm install grunt-shell --save
-npm install jshint-stylish --save
-npm install grunt-cli --save
+npm install bower --save-dev
+npm install grunt --save-dev
+npm install grunt-contrib-clean --save-dev
+npm install grunt-contrib-copy --save-dev
+npm install grunt-contrib-jade --save-dev
+npm install grunt-contrib-jshint --save-dev
+npm install grunt-contrib-less --save-dev
+npm install grunt-contrib-watch --save-dev
+npm install grunt-jscs --save-dev
+npm install grunt-shell --save-dev
+npm install jshint-stylish --save-dev
+npm install grunt-cli --save-dev
 
 # installing new bower production components
 bower install angular --save
