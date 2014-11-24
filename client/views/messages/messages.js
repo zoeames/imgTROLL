@@ -8,15 +8,19 @@
   	console.log('message', $scope.title);
   	$scope.receivers = [];
   	$scope.messages = [];
+    $scope.receiver = {};
+
+    User.checkSession().then(function(response){
+      debugger;
+      $scope.message.sender = response.data.username;
+    });
 
   	User.getAll().then(function(response){
-      debugger;
   		$scope.receivers = response.data.users;
   	});
 
   	$scope.submit = function(){
   		Message.send($scope.message).then(function(response){
-        debugger;
   			$scope.message = response.data;
   		});
   	};
