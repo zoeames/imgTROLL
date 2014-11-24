@@ -32,30 +32,30 @@
 5 verbose install     'jshint-stylish' ] ]
 6 info preinstall VIchan@0.0.0
 7 verbose readDependencies using package.json deps
-8 verbose already installed skipping async@^0.9.0 /Users/joy/Code/VIchan
-9 verbose already installed skipping bcrypt@^0.8.0 /Users/joy/Code/VIchan
-10 verbose already installed skipping bower@^1.3.12 /Users/joy/Code/VIchan
-11 verbose already installed skipping cheerio@^0.18.0 /Users/joy/Code/VIchan
-12 verbose already installed skipping good@^4.0.0 /Users/joy/Code/VIchan
-13 verbose already installed skipping good-console@^2.0.1 /Users/joy/Code/VIchan
-14 verbose already installed skipping hapi@^7.5.2 /Users/joy/Code/VIchan
-15 verbose already installed skipping hapi-auth-cookie@^1.4.0 /Users/joy/Code/VIchan
-16 verbose already installed skipping joi@^4.9.0 /Users/joy/Code/VIchan
-17 verbose already installed skipping lout@^5.1.2 /Users/joy/Code/VIchan
-18 verbose already installed skipping mongoose@^3.8.19 /Users/joy/Code/VIchan
-19 verbose already installed skipping request@^2.48.0 /Users/joy/Code/VIchan
-20 verbose already installed skipping underscore@^1.7.0 /Users/joy/Code/VIchan
-21 verbose already installed skipping grunt@^0.4.5 /Users/joy/Code/VIchan
-22 verbose already installed skipping grunt-cli@^0.1.13 /Users/joy/Code/VIchan
-23 verbose already installed skipping grunt-contrib-clean@^0.6.0 /Users/joy/Code/VIchan
-24 verbose already installed skipping grunt-contrib-copy@^0.7.0 /Users/joy/Code/VIchan
-25 verbose already installed skipping grunt-contrib-jade@^0.13.0 /Users/joy/Code/VIchan
-26 verbose already installed skipping grunt-contrib-jshint@^0.10.0 /Users/joy/Code/VIchan
-27 verbose already installed skipping grunt-contrib-less@^0.12.0 /Users/joy/Code/VIchan
-28 verbose already installed skipping grunt-contrib-watch@^0.6.1 /Users/joy/Code/VIchan
-29 verbose already installed skipping grunt-jscs@^0.8.1 /Users/joy/Code/VIchan
-30 verbose already installed skipping grunt-shell@^1.1.1 /Users/joy/Code/VIchan
-31 verbose already installed skipping jshint-stylish@^1.0.0 /Users/joy/Code/VIchan
+8 verbose already installed skipping bower@^1.3.12 /Users/joy/Code/VIchan
+9 verbose already installed skipping cheerio@^0.18.0 /Users/joy/Code/VIchan
+10 verbose already installed skipping good@^4.0.0 /Users/joy/Code/VIchan
+11 verbose already installed skipping good-console@^2.0.1 /Users/joy/Code/VIchan
+12 verbose already installed skipping hapi@^7.5.2 /Users/joy/Code/VIchan
+13 verbose already installed skipping hapi-auth-cookie@^1.4.0 /Users/joy/Code/VIchan
+14 verbose already installed skipping joi@^4.9.0 /Users/joy/Code/VIchan
+15 verbose already installed skipping lout@^5.1.2 /Users/joy/Code/VIchan
+16 verbose already installed skipping mongoose@^3.8.19 /Users/joy/Code/VIchan
+17 verbose already installed skipping request@^2.48.0 /Users/joy/Code/VIchan
+18 verbose already installed skipping underscore@^1.7.0 /Users/joy/Code/VIchan
+19 verbose already installed skipping grunt@^0.4.5 /Users/joy/Code/VIchan
+20 verbose already installed skipping grunt-cli@^0.1.13 /Users/joy/Code/VIchan
+21 verbose already installed skipping grunt-contrib-clean@^0.6.0 /Users/joy/Code/VIchan
+22 verbose already installed skipping grunt-contrib-copy@^0.7.0 /Users/joy/Code/VIchan
+23 verbose already installed skipping grunt-contrib-jade@^0.13.0 /Users/joy/Code/VIchan
+24 verbose already installed skipping grunt-contrib-jshint@^0.10.0 /Users/joy/Code/VIchan
+25 verbose already installed skipping grunt-contrib-less@^0.12.0 /Users/joy/Code/VIchan
+26 verbose already installed skipping grunt-contrib-watch@^0.6.1 /Users/joy/Code/VIchan
+27 verbose already installed skipping grunt-jscs@^0.8.1 /Users/joy/Code/VIchan
+28 verbose already installed skipping grunt-shell@^1.1.1 /Users/joy/Code/VIchan
+29 verbose already installed skipping jshint-stylish@^1.0.0 /Users/joy/Code/VIchan
+30 verbose already installed skipping async@^0.9.0 /Users/joy/Code/VIchan
+31 verbose already installed skipping bcrypt@^0.8.0 /Users/joy/Code/VIchan
 32 silly resolved []
 33 info build /Users/joy/Code/VIchan
 34 verbose linkStuff [ false, false, false, '/Users/joy/Code' ]
@@ -120,7 +120,7 @@
 65 verbose unsafe-perm in lifecycle true
 66 info VIchan@0.0.0 Failed to exec postinstall script
 67 error VIchan@0.0.0 postinstall: `grunt deploy`
-67 error Exit status 3
+67 error Exit status 6
 68 error Failed at the VIchan@0.0.0 postinstall script.
 68 error This is most likely a problem with the VIchan package,
 68 error not with npm itself.
