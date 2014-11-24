@@ -1,0 +1,68 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,100);
+
+.stuffContent {
+// background-image: url('/assets/img/low_contrast_linen.png');
+// background-color: black;
+  margin-top: 20px;
+  height: 270px;
+  width: 100%;
+ /* fallback */
+  background-color: #2F2727;
+  background-image: url('/assets/img/low_contrast_linen.png');
+// background-position: center center;
+// background-repeat: no-repeat;
+
+/* Safari 4-5, Chrome 1-9 */
+background: -webkit-gradient(radial, center center, 0, center center, 460, from(#545456), to(black));
+
+/* Safari 5.1+, Chrome 10+ */
+background: -webkit-radial-gradient(circle, #545456, black);
+
+/* Firefox 3.6+ */
+background: -moz-radial-gradient(circle, #545456, black);
+
+/* IE 10 */
+background: -ms-radial-gradient(circle, #545456, black);
+}
+
+.searchForm {
+
+  .searchForm form {
+    min-width: 300px;
+    margin:0px auto;
+    text-align: center;
+  }
+
+  input, label,{
+    width: 400px;
+    margin: 0px auto;
+  }
+
+  button {
+    margin: 0px auto;
+    display: inherit;
+  }
+}
+
+.secondary.success.alert {
+  margin-top: 3%;
+  font-size: 120%;
+}
+
+label.search {
+  font-size: 125%;
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  text-align: center;
+  margin-top: 2%;
+}
+
+.loading {
+  color: white;
+  margin-top: 10px;
+}
+
+.results {
+  color: white;
+  margin-top: 35px;
+}
