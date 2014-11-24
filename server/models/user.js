@@ -10,9 +10,10 @@ UserSchema = new mongoose.Schema({
   password:  {type: String, required: true, validate: [passwordV, 'password length']},
   location: {type: String, required: true, default: 'Edit Me'},
   email: {type: String, required: true, default: 'Edit Me'},
-  Age: {type: Number, required: true, default: 0},
-  createdAt: {type: Date,  required: true, default: Date.now},
-  profilePic: {type: String, default: 'http://i2.wp.com/www.maas360.com/assets/Uploads/defaultUserIcon.png'}
+  phoneNum: {type: String, required: true, default: 'Edit Me'},
+  age: {type: Number, required: true, default: 0},
+  profilePic: {type: String, default: 'http://i2.wp.com/www.maas360.com/assets/Uploads/defaultUserIcon.png'},
+  createdAt: {type: Date,  required: true, default: Date.now}
 });
 
 UserSchema.methods.encrypt = function(){
