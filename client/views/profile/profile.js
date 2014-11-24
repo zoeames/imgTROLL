@@ -8,9 +8,6 @@
     $scope.searchHistory = [];
     $scope.images = [];
 
-    Crawler.getImages().then(function(response){
-      $scope.images = response.data[0].images;
-    });
 
     Search.history().then(function(res){
         console.log(res.data);
