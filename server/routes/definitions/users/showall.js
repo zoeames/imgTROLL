@@ -8,9 +8,8 @@ module.exports = {
     notes: 'All Users',
     tags:['users'],
     handler: function(request, reply){
-        User.find(function(err, users){
-        console.log('USER SERVER SIDE', users);
-        reply({users:users});
+      User.find(function(err, users){
+      reply({users:users});
     });
     }
 };
