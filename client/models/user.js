@@ -25,7 +25,16 @@
     //   return {register:register, login:login, logout:logout, show:show};
     // }]);
     .factory('User', ['$http', function($http){
-      var userobj={};
+
+      function getAll(){
+        return $http.get('/users');
+      }
+      
+      return {getAll:getAll};
+
+
+
+      /*var userobj={};
       userobj.register = function(user){
         return $http.post('/register', user);
       };
@@ -55,6 +64,7 @@
       };
 
       return userobj;
+    */
 
     }]);
 

@@ -6,17 +6,16 @@
   	$scope.title = 'Message Page';
   	$scope.message = {};
   	console.log('message', $scope.title);
-  	$scope.receivers = ['one', 'two', 'three'];
+  	$scope.receivers = [];
   	$scope.messages = [];
 
-  	//User.getAll().then(function(response){
-  	//	debugger;
-  	//	$scope.receivers = response.data;
-  	//});
-
+  	/*User.getAll().then(function(response){
+      debugger;
+  		$scope.receivers = response.data;
+  	});
+*/
   	$scope.submit = function(){
   		Message.send($scope.message).then(function(response){
-  			debugger;
   			$scope.message = response.data;
   		});
   	};
