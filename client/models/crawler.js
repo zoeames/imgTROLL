@@ -8,7 +8,11 @@
         return $http.post('/search', query);
       }
 
-      return {search: search};
+      function getImages(){
+        return $http.get('/images');
+      }
+
+      return {search: search, getImages:getImages};
 
     }]);
 

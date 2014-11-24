@@ -2,7 +2,13 @@
   'use strict';
 
   angular.module('troll')
-  .controller('ProCtrl', ['$scope', 'User', '$http', function($scope, User, $http){
+  .controller('ProCtrl', ['$scope', 'User', '$http', 'Crawler', function($scope, User, $http, Crawler){
+    $scope.images = [];
+
+    Crawler.getImages().then(function(response){
+      $scope.images = response.data[0].images;
+      console.log('data[0]>>>', response.data[0]);
+    });
 
     $scope.toggleStuff = function(){
       $scope.hideStuff = !!!$scope.hideStuff;
