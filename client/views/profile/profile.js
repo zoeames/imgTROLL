@@ -3,9 +3,9 @@
 
   angular.module('troll')
   .controller('ProCtrl', ['$scope', 'User', '$http', function($scope, User, $http){
-    console.log('User.user . . . . ', User.user);
+    //console.log('User.user . . . . ', User.user);
 
-    $scope.user = User.user;
+    //$scope.user = User.user;
     $scope.location = $scope.user.location;
 
     $scope.toggleStuff = function(){
@@ -19,7 +19,6 @@
       takepicture();
       $scope.photo = photo.currentSrc;
     };
-
 
     $scope.savePic = function(){
       //console.log('scope.photo', JSON.stringify($scope.photo);
