@@ -15,7 +15,6 @@
 
     $scope.toggleStuff = function(){
       $scope.hideStuff = !!!$scope.hideStuff;
-      $('.stuffContent').addClass('animated zoomIn');
     };
 
     $scope.photo = {};
