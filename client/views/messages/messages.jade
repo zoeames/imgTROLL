@@ -1,1 +1,14 @@
-h4 Messages
+h4 {{title}}
+
+.row
+  .col-xs-3
+    form(role='form', novalidate, name='MessageForm')
+      .form-group
+        label(for='message') Message
+        input.form-control#message(type='text', name='message', ng-model='message.body', autofocus, required)
+      .form-group
+        label(for='receiver') Receiver
+        select.form-control#receiver(name='receiver', ng-model='message.receiver', type='dropdown', required)
+          option(ng-repeat='r in receivers') {{r}}
+      button.btn.btn-primary(ng-click='submit()') Send
+  .col-xs-9

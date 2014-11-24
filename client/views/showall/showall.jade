@@ -1,25 +1,18 @@
 h4 All Users:
-.row
-  .large-6.columns 
-    ul(ng-repeat='user in users')
-        a#list(href='', ng-click='show(user)')
-        a.th(href='')
-          //img(src= '{{user.photo}}')
-        h2 {{user.name}}
-        h2 {{user.age}}
-        h2 {{user.location}}
-.row
-  .large-9.large-offset-2.columns
-  table.table.table-bordered
+
+.userTable
+  table.table.table-bordered.center
     thead
       tr
         th Name
         th Age
         th Location
+        th Email
         th Message
     tbody
       tr(ng-repeat='u in allUsers')
         td {{u.username}}
-        td {{u.Age}}
+        td {{u.age}}
         td {{u.location}}
-        td: a.button(href='/messages') Message Me
+        td {{u.email}}
+        td: a.button(href='/#/messages') Message Me
