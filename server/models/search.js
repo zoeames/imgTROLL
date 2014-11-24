@@ -93,7 +93,7 @@ Search.prototype.scrubImages = function(website, userId, bigCB){
     Search.getImages(website, function(imageLinks){
       self.statistics.push({url: website, images: imageLinks.length || 0});
       async.forEachLimit(imageLinks, 5, function(link, cb){
-        self.downloadFile(link, userId, self.name, function(){
+        self.downloadFile(link, function(){
           cb(null);
         });
       }, function(err){
@@ -105,14 +105,15 @@ Search.prototype.scrubImages = function(website, userId, bigCB){
     });
 };
 
-Search.prototype.downloadFile = function(weblink, userId, root, cb){
-  var dirName   = 'client/assets/' + userId,
-      imagePath = dirName + '/' + root,
-      absPath  = imagePath + '/' + this.limit + '.png',
-      self = this;
+Search.prototype.downloadFile = function(weblink, cb){
+  var siteName  = extractFilename(weblink),
+      dirName   = 'client/assets/sites/' + siteName,
+//      imagePath = dirName + '/' + root,
+      absPath   = dirName + '/' + this.limit + '.png',
+      self      = this;
 
   if(!fs.existsSync(dirName)){fs.mkdirSync(dirName);}
-  if(!fs.existsSync(imagePath)){fs.mkdirSync(imagePath);}
+//  if(!fs.existsSync(imagePath)){fs.mkdirSync(imagePath);}
 
   //prevent too many images
   if(this.limit > 300){
@@ -207,6 +208,15 @@ function removeEndingSlash(website){
   }
 }
 
+function extractFilename(website){
+  var siteArray = website.split('/'),
+  site = siteArray[2];
+  siteArray = site.split('.');
+  site = siteArray.join('-');
+  //console.log('site in extractSiteFilename', site);
+  return site;
+}
+
 //OLD
 //function checkRoute(link, root){
 //  //relative routes
@@ -246,4 +256,3 @@ Search.getLinks = function(website, cb){
   });
 };
 */
-

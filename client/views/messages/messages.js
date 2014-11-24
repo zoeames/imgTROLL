@@ -11,20 +11,20 @@
 
     //User.getAll().then(function(response){
     //	debugger;
-      //	$scope.receivers = response.data;
-      //});
+    //	$scope.receivers = response.data;
+    //});
 
     $scope.submit = function(){
-       Message.send($scope.message).then(function(response){
-         //debugger;
-       $scope.message = response.data;
-      });
-    };
+      Message.send($scope.message).then(function(response){
+        //debugger;
+         $scope.message = response.data;
+       });
+     };
 
-    Message.showAll().then(function(response){
-      //debugger;
-      $scope.messages  = response.data;
-    });
+     Message.showAll().then(function(response){
+       //debugger;
+       $scope.messages  = response.data;
+     });
 
   }]);
 })();

@@ -77,6 +77,7 @@
     }
 
     $scope.displayChart = function(){
+        console.log('it worked');
       var chartData =
       [
     {
@@ -203,12 +204,13 @@
         'url': 'http://www.aboutmcdonalds.com/country/map.html',
         'images': 8
     }
-];
+],
 
-      AmCharts.ready(function(){
-        var chart = new AmCharts.AmSerialChart();
+        chart = new AmCharts.AmSerialChart();
+        console.log(chart);
             chart.dataProvider = chartData;
             chart.categoryField = 'url';
+            chart.valueField = 'images';
             chart.angle = 30;
             chart.depth3D = 8;
 
@@ -230,7 +232,6 @@
             categoryAxis.labelRotation = 90;
 
         chart.write('chartdiv');
-      });
     };
   }]);
 })();
