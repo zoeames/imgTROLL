@@ -1,43 +1,38 @@
 'use strict';
 
 
-var Search  = require('../models/search'),
-    _       = require('underscore'),
-    async   = require('async');
+var Search  = require('../models/search.js'),
+    Site    = require('../models/site.js');
+//    _       = require('underscore'),
+//    async   = require('async');
 
 exports.crawl = {
   handler: function(request, reply){
-    var site = 'http://www.mcdonalds.com/',
-    search = new Search({name: 'MySearch', mainUrl: site, images: [], limit: 0, statistics: []});
 
+    //once connected, this info will come in request.payload
+    var site    = 'http://www.mcdonalds.com/',
+    searchName  = 'MySearch',
+    depth       = 1;
 
-    search.depthFinder(search.mainUrl, 1, function(depthUrls){
-      Search.urlValidate(site, function(err, xyz){
-        if(err){
-          reply('Error- invalid url');
-        }else{
-          //flatten the array of arrays
-          var urlsArray  = _.uniq(_.flatten(depthUrls));
-          if(urlsArray.length > 75){
-            urlsArray = urlsArray.splice(0, 75);
-          }else if(!urlsArray.length){
-            reply('no images founds');
-          }
+    Site.findOne({mainUrl: site}, function(err, site){
+      if(site){
+        // add userId to this... request.payload?
+        var search = new Search({name: searchName, mainUrl: site, depth: depth, depthUrls: []});
+        search.getUrls(function(err, search){
+          reply(search);
+        });
+      }else{
+        Site.createNew(site, function(err, site, xyz){
+          console.log('err in search controller, Site.createNew>>>>>', err);
+          console.log('site in search controller, Site.createNew>>>>>', site);
+          console.log('xyz in search controller, Site.createNew>>>>>', xyz);
 
-          //God help us all.
-          async.forEachLimit(urlsArray, 20, function(url, cb){
-            console.log(url);
-              search.scrubImages(url, '000000000000000000000001', function(err){
-                  cb();
-              });
-          }, function(){
-           search.save(function(err, s){
-             reply(search.statistics);
-           });
+          var search = new Search({name: searchName, mainUrl: site, depth: depth, depthUrls: []});
+          search.getUrls(function(err, search){
+            reply(search);
           });
-        }
-      }); //Search.urlValidate end
-    }); //search.depthFinder end
-
+        });
+      }
+    });
   }
 };

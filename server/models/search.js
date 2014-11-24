@@ -6,6 +6,7 @@ var mongoose       = require('mongoose'),
     _              = require('underscore'),
     fs             = require('fs'),
     async          = require('async'),
+    Site           = require('./site.js'),
     schema = new mongoose.Schema({
       name: String,
       mainUrl: {type: String, required: true},
@@ -16,6 +17,77 @@ var mongoose       = require('mongoose'),
     }),
     Search = mongoose.model('Search', schema);
 
+Search.prototype.getUrls = function(cb){
+  var self = this;
+  Site.urlValidate(self.mainUrl, function(err, success){
+    if(err){
+      cb('Error- invalid url');
+    }else{
+      depthFinder(self.mainUrl, function(firstDepth){
+
+        //flatten the array of arrays
+        var urlsArray  = _.uniq(_.flatten(firstDepth));
+        if(urlsArray.length > 75){
+          urlsArray = urlsArray.splice(0, 75);
+        }else if(!urlsArray.length){
+          cb('no images found');
+        }
+// move to appropriate place*****
+        var depth = self.depth;
+
+        if(depth <= 0){
+          cb();
+        }else{
+          async.forEach(urlsArray, function(url, cbOne){
+            depthFinder(url, depth - 1, cbOne);
+          }, function(err){
+            //console.log('Depth: ', depth);
+            cb(urlsArray);
+          });
+        }
+// *************
+        //God help us all.
+        async.forEachLimit(urlsArray, 20, function(url, cb){
+          console.log(url);
+          self.scrubImages(url, '000000000000000000000001', function(err){
+            cb();
+          });
+        }, function(){
+          self.save(function(err, s){
+            cb(s);
+          });
+        });
+      }); //site.depthFinder end
+    }
+  }); //Site.urlValidate end
+};
+
+function depthFinder(website, cb){
+  website = removeEndingSlash(website);
+//  var self  = this;
+
+  requestWebsite({url: website, timeout: 3000}, function(error, response, body){
+    if(error){ return cb(); }
+      var $ = cheerio.load(body),
+      anchorTags = $('a'),
+      keys = Object.keys(anchorTags),
+      a = keys.map(function(k){
+        return extractDepthRoute(anchorTags[k].attribs, website);
+      });
+
+      a = _.compact(a);
+      a = _.uniq(a);
+
+      //push the extracted linked into a urlsArray
+      //self.urlsArray.push(a);
+      return a;
+    }).on('error', function(){
+      console.log('Anchor tag timeout');
+      return;
+  });
+}
+
+//PENDING...
 Search.getImages = function(website, cb){
   requestWebsite({url: website, timeout: 3000}, function(error, response, body){
     if (!error && response.statusCode === 200){
@@ -42,41 +114,7 @@ Search.getImages = function(website, cb){
 };
 
 
-Search.prototype.depthFinder = function(website, depth, cb){
-  website = removeEndingSlash(website);
-  var self  = this;
-
-  requestWebsite({url: website, timeout: 3000}, function(error, response, body){
-    if(error){ return cb(); }
-    var $ = cheerio.load(body),
-    anchorTags = $('a'),
-    keys = Object.keys(anchorTags),
-    a = keys.map(function(k){
-      return extractDepthRoute(anchorTags[k].attribs, website);
-    });
-
-    a = _.compact(a);
-    a = _.uniq(a);
-
-    //push the extracted linked into a urlsArray
-    self.urlsArray.push(a);
-
-    if(depth <= 0){
-      cb();
-    }else{
-      async.forEach(a, function(url, cbOne){
-        self.depthFinder(url, depth - 1, cbOne);
-      }, function(err){
-          //console.log('Depth: ', depth);
-          cb(self.urlsArray);
-      });
-    }
-  }).on('error', function(){
-    console.log('Anchor tag timeout');
-    return;
-  });
-};
-
+//PENDING...
 Search.prototype.scrubImages = function(website, userId, bigCB){
     var self = this;
     website = removeEndingSlash(website);
@@ -104,6 +142,7 @@ Search.prototype.scrubImages = function(website, userId, bigCB){
     });
 };
 
+//PENDING...
 Search.prototype.downloadFile = function(weblink, userId, root, cb){
   var dirName   = 'client/assets/' + userId,
       imagePath = dirName + '/' + root,
@@ -141,19 +180,12 @@ Search.prototype.downloadFile = function(weblink, userId, root, cb){
     //error catching for headers
     cb(null);
   });
-
-};
-
-Search.urlValidate = function(site, cb){
-  requestWebsite(site, function(error, response, body){
-    cb(error);
-  });
 };
 
 
 module.exports = Search;
 
-
+//PENDING...
 function extractDepthRoute(link, root){
   var rootReg = null;
   try {
@@ -181,6 +213,7 @@ function extractDepthRoute(link, root){
   }
 }
 
+//PENDING...
 function absImageRoute(link, root){
   var re = new RegExp(/^\/[a-zA-Z0-9\-\/]*/);
 
@@ -194,6 +227,7 @@ function absImageRoute(link, root){
   }
 }
 
+//PENDING...
 function removeEndingSlash(website){
   //checks for any string that end with a '/' character
   var removeEnd = new RegExp(/\/$/);
@@ -243,4 +277,3 @@ Search.getLinks = function(website, cb){
   });
 };
 */
-
