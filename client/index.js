@@ -5,7 +5,6 @@
     .config(['$stateProvider', '$urlRouterProvider', '$localForageProvider', function($stateProvider, $urlRouterProvider, $localForageProvider){
       $urlRouterProvider.otherwise('/');
 
-
       $stateProvider
         .state('home',      {url:'/',              templateUrl:'/views/home/home.html',             controller: 'HomeCtrl'})
         .state('register',  {url:'/register',      templateUrl:'/views/register/register.html',     controller:'RegCtrl'})
