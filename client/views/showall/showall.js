@@ -7,6 +7,7 @@
     $scope.allUsers=[];
 
     User.getAll().then(function(response){
+
       $scope.allUsers = response.data.users;
     });
   }]);

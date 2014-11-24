@@ -2,10 +2,10 @@ doctype html
 //if IE 9
   html.lt-ie10(lang='en')
 html.no-js(ng-app='troll', lang='en')
-   head
+  head
       meta(charset='utf-8')
       meta(name='viewport', content='width=device-width, initial-scale=1.0')
-      title Troll< img >
+      title <img>Troll
       link(rel='stylesheet', href='/vendor/foundation/css/normalize.css')
       link(rel='stylesheet', href='/vendor/foundation/css/foundation.css')
       link(href='/vendor/fontawesome/css/font-awesome.css', rel='stylesheet')
@@ -15,10 +15,11 @@ html.no-js(ng-app='troll', lang='en')
       link(href='assets/style.css', rel='stylesheet')
       link(href='/views/showall/showall.css', rel='stylesheet')
       script(src='/vendor/foundation/js/vendor/modernizr.js')
-   body(ng-controller='UsersCtrl')
-     include views/nav/nav
-     .row
-       div(ui-view)
+  body(ng-controller='UsersCtrl')
+    include views/nav/nav
+    .row
+      .small-12.columns
+        div(ui-view)
 
 
       footer.navbar-default.navbar-fixed-bottom
