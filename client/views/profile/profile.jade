@@ -2,7 +2,7 @@
   div.row
     div.small-5.large-4.columns.panel
       h4.animated.fadeInLeft {{username}}
-      .picture(style='border-radius: 25%; background-image: url("{{profilePic}}"); background-repeat: none; background-size: cover; height: 300px; width: 300px;')
+      .picture(style='border-radius: 25%; background-image: url("{{user.profilePic}}"); background-repeat: none; background-size: cover; height: 300px; width: 300px;')
       .takePicButton.pop
         p Take Picture!
     div.small-1.large-1.columns
@@ -16,10 +16,6 @@
   #middle
     #content
       #show
-
-
-        .img.1.slide(ng-src='assets/')
-          img(ng-repeat='i in images') {{i}}
 
 
         .img1.slide
