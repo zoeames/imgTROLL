@@ -1,24 +1,24 @@
 h4 All Users:
 .row
-    .large-6.columns 
-      ul(ng-repeat='user in users')
-          a#list(href='', ng-click='show(user)')
-          a.th(href='')
-            img(src= '{{user.photo}}')
-          h2 {{user.name}}
-          h2 {{user.age}}
-          h2 {{user.location}}
-          h3 PEOPLE
-  .row
-    .large-9.large-offset-2.columns
-    table
-      thead
-        tr(ng-repeat='user in users')
-          th(width='300') Name
-          th(width='150') Age
-          th Location
-      tbody
-        tr
-          td {{user.name}}
-          td {{user.age}}
-          td {{user.location}}
+  .large-6.columns 
+    ul(ng-repeat='user in users')
+        a#list(href='', ng-click='show(user)')
+        a.th(href='')
+          //img(src= '{{user.photo}}')
+        h2 {{user.name}}
+        h2 {{user.age}}
+        h2 {{user.location}}
+        //h3 PEOPLE
+.row
+  .large-9.large-offset-2.columns
+  table
+    thead
+      tr(ng-repeat='user in users')
+        th(width='300') Name
+        th(width='150') Age
+        th Location
+    tbody
+      tr
+        td {{user.name}}
+        td {{user.age}}
+        td {{user.location}}

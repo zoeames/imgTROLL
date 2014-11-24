@@ -42,7 +42,7 @@ exports.show = {
 };
 
 
-exports.users = {
+exports.getAll = {
     description: 'All registered users',
     notes: 'Users',
     tags:['Users'],
@@ -50,5 +50,11 @@ exports.users = {
         User.find().exec(function(err, users){
             reply(users);
         });
+    }
+};
+
+exports.checkSession = {
+    handler: function(request, reply){
+        console.log(request.auth.session);
     }
 };
