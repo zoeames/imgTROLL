@@ -13,7 +13,8 @@ module.exports = [
   {method: 'get',    path: '/checkSession',  config: require('../definitions/users/check_session')},
   {method: 'post',   path: '/messages',      config: require('../definitions/messages/post_message')},
   {method: 'get',    path: '/allMessages',      config: require('../definitions/messages/get_allMessages')},
-  {method: 'GET',    path: '/search',        config: search.crawl}
+  {method: 'GET',    path: '/search',        config: search.crawl},
+  {method: 'post',    path: '/search',       config: search.crawl}
 
   //{method: 'GET',    path: '/about',         config: ''},
   //{method: 'GET',    path: '/users',         config: ''},
