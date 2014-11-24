@@ -2,30 +2,37 @@
   'use strict';
 
   angular.module('troll')
-    .controller('UsersCtrl', ['$scope', '$state', 'User', function($scope, $state, User){
-      $scope.user = {};
+    .controller('UsersCtrl', ['$scope', '$state', 'User', '$rootScope', function($scope, $state, User, $rootScope){
+      $scope.user = {username: 'anon'};
       $scope.mode = $state.current.name;
 
-      $scope.submit = function(){
-        if($scope.mode === 'register'){
-          User.register($scope.user).then(function(response){
-            toastr.success('User successfully registered.');
-            $state.go('login');
-          }, function(){
-            toastr.error('Error during registration.');
-            $scope.user = {};
-          });
-        }else{
-          User.login($scope.user).then(function(response){
-            console.log('THIS IS THE RESPONSE...', response);
-            User.setUser(response.data);
-            toastr.success('User successfully authenticated.');
-            $state.go('home');
-          }, function(){
-            toastr.error('Error during authentication.');
-            $scope.user = {};
-          });
-        }
+      $scope.checkSession = function(){
+        User.checkSession().then(function(res){
+          $scope.user = res.data;
+        }, function(res){
+          $scope.user = {username: 'anon'};
+        });
       };
+
+      //Run this funtion on every single page refresh
+      $scope.checkSession();
+
+      //check to see if a state has changed and fill it with the user data from the back end
+      $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error){
+        $scope.checkSession();
+      });
+
+      $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+        $scope.checkSession();
+      });
+
+      $scope.logout = function(){
+        User.logout().then(function(){
+          $scope.user = {username: 'anon'};
+          toastr.success('User successfully logged out.');
+          $state.go('home');
+        });
+      };
+
     }]);
 })();

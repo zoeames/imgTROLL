@@ -11,11 +11,10 @@ html.no-js(ng-app='troll', lang='en')
       link(href='/vendor/fontawesome/css/font-awesome.css', rel='stylesheet')
       link(rel='stylesheet', href='/vendor/toastr/toastr.css')
       link(rel='stylesheet', href='/index.css')
-      link(href='/components/directives/ns-nav/ns-nav.css', rel='stylesheet')
       link(href='assets/keyframes.css', rel='stylesheet')
       link(href='assets/style.css', rel='stylesheet')
       script(src='/vendor/foundation/js/vendor/modernizr.js')
-   body
+   body(ng-controller='UsersCtrl')
       .row
          .small-12.columns
             include views/nav/nav
@@ -43,12 +42,13 @@ html.no-js(ng-app='troll', lang='en')
       script(src='/index.js')
       script(src='/models/user.js')
       script(src='/views/users/users.js')
+      script(src='/views/login/login.js')
+      script(src='/views/register/register.js')
       script(src='/views/nav/nav.js')
       script(src='/views/home/home.js')
       script(src='/views/messages/messages.js')
       script(src='/views/profile/profile.js')
       script(src='/views/showall/showall.js')
-      script(src='/views/show/show.js')
       script(src='/views/users/profile.js')
 
       script.
