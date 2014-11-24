@@ -8,17 +8,18 @@ h4 All Users:
         h2 {{user.name}}
         h2 {{user.age}}
         h2 {{user.location}}
-        //h3 PEOPLE
 .row
   .large-9.large-offset-2.columns
-  table
+  table.table.table-bordered
     thead
-      tr(ng-repeat='user in users')
-        th(width='300') Name
-        th(width='150') Age
-        th Location
-    tbody
       tr
-        td {{user.name}}
-        td {{user.age}}
-        td {{user.location}}
+        th Name
+        th Age
+        th Location
+        th Message
+    tbody
+      tr(ng-repeat='u in allUsers')
+        td {{u.username}}
+        td {{u.Age}}
+        td {{u.location}}
+        td: a.button(href='/messages') Message Me
