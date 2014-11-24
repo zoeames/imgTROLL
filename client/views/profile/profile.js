@@ -3,10 +3,6 @@
 
   angular.module('troll')
   .controller('ProCtrl', ['$scope', 'User', '$http', function($scope, User, $http){
-    //console.log('User.user . . . . ', User.user);
-
-    //$scope.user = User.user;
-    $scope.location = $scope.user.location;
 
     $scope.toggleStuff = function(){
       $scope.hideStuff = !!!$scope.hideStuff;
