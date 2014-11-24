@@ -12,7 +12,8 @@ var mongoose       = require('mongoose'),
       images: [String],
       urlsArray: Array,
       limit: Number,
-      statistics: Array
+      statistics: Array,
+      userId: mongoose.Schema.Types.ObjectId
     }),
     Search = mongoose.model('Search', schema);
 

@@ -8,7 +8,7 @@ var Search  = require('../models/search'),
 exports.crawl = {
   handler: function(request, reply){
     var site = request.payload.mainUrl,
-    search = new Search({name: 'MySearch', mainUrl: site, images: [], limit: 0, statistics: []});
+    search = new Search({name: 'MySearch', mainUrl: site, images: [], limit: 0, statistics: [], userId: request.auth.credentials._id});
 
 
     search.depthFinder(search.mainUrl, request.payload.depth, function(depthUrls){
@@ -27,7 +27,7 @@ exports.crawl = {
 
           //God help us all.
           async.forEachLimit(urlsArray, 20, function(url, cb){
-              search.scrubImages(url, '000000000000000000000001', function(err){
+              search.scrubImages(url, request.auth.credentials._id, function(err){
                   cb();
               });
           }, function(){
