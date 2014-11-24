@@ -110,6 +110,7 @@ Search.prototype.downloadFile = function(weblink, cb){
       dirName   = 'client/assets/sites/' + siteName,
 //      imagePath = dirName + '/' + root,
       absPath   = dirName + '/' + this.limit + '.png',
+      relPath   = 'assets/sites/' + siteName + this.limit + '.png',
       self      = this;
 
   if(!fs.existsSync(dirName)){fs.mkdirSync(dirName);}
@@ -128,7 +129,7 @@ Search.prototype.downloadFile = function(weblink, cb){
       //console.log('content-type:', res.headers['content-type']);
       return cb(null);
     }else{
-      self.images.push(absPath);
+      self.images.push(relPath);
 
       requestWebsite({url: weblink, followRedirect: false, maxRedirects: 0, timeout: 3000}).pipe(fs.createWriteStream(absPath))
       .on('close', function(){
