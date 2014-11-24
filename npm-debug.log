@@ -1,0 +1,126 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/node/bin/node',
+1 verbose cli   '/usr/local/node/bin/npm',
+1 verbose cli   'install' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.32
+4 verbose readDependencies using package.json deps
+5 verbose install where, deps [ '/Users/betteyouwill/Code/Vichan',
+5 verbose install   [ 'async',
+5 verbose install     'bcrypt',
+5 verbose install     'bower',
+5 verbose install     'cheerio',
+5 verbose install     'good',
+5 verbose install     'good-console',
+5 verbose install     'hapi',
+5 verbose install     'hapi-auth-cookie',
+5 verbose install     'joi',
+5 verbose install     'lout',
+5 verbose install     'mongoose',
+5 verbose install     'request',
+5 verbose install     'underscore',
+5 verbose install     'grunt',
+5 verbose install     'grunt-cli',
+5 verbose install     'grunt-contrib-clean',
+5 verbose install     'grunt-contrib-copy',
+5 verbose install     'grunt-contrib-jade',
+5 verbose install     'grunt-contrib-jshint',
+5 verbose install     'grunt-contrib-less',
+5 verbose install     'grunt-contrib-watch',
+5 verbose install     'grunt-jscs',
+5 verbose install     'grunt-shell',
+5 verbose install     'jshint-stylish' ] ]
+6 info preinstall VIchan@0.0.0
+7 verbose readDependencies using package.json deps
+8 verbose already installed skipping async@^0.9.0 /Users/betteyouwill/Code/Vichan
+9 verbose already installed skipping bcrypt@^0.8.0 /Users/betteyouwill/Code/Vichan
+10 verbose already installed skipping bower@^1.3.12 /Users/betteyouwill/Code/Vichan
+11 verbose already installed skipping cheerio@^0.18.0 /Users/betteyouwill/Code/Vichan
+12 verbose already installed skipping good@^4.0.0 /Users/betteyouwill/Code/Vichan
+13 verbose already installed skipping good-console@^2.0.1 /Users/betteyouwill/Code/Vichan
+14 verbose already installed skipping hapi@^7.5.2 /Users/betteyouwill/Code/Vichan
+15 verbose already installed skipping hapi-auth-cookie@^1.4.0 /Users/betteyouwill/Code/Vichan
+16 verbose already installed skipping joi@^4.9.0 /Users/betteyouwill/Code/Vichan
+17 verbose already installed skipping lout@^5.1.2 /Users/betteyouwill/Code/Vichan
+18 verbose already installed skipping mongoose@^3.8.19 /Users/betteyouwill/Code/Vichan
+19 verbose already installed skipping request@^2.48.0 /Users/betteyouwill/Code/Vichan
+20 verbose already installed skipping underscore@^1.7.0 /Users/betteyouwill/Code/Vichan
+21 verbose already installed skipping grunt@^0.4.5 /Users/betteyouwill/Code/Vichan
+22 verbose already installed skipping grunt-cli@^0.1.13 /Users/betteyouwill/Code/Vichan
+23 verbose already installed skipping grunt-contrib-clean@^0.6.0 /Users/betteyouwill/Code/Vichan
+24 verbose already installed skipping grunt-contrib-copy@^0.7.0 /Users/betteyouwill/Code/Vichan
+25 verbose already installed skipping grunt-contrib-jade@^0.13.0 /Users/betteyouwill/Code/Vichan
+26 verbose already installed skipping grunt-contrib-jshint@^0.10.0 /Users/betteyouwill/Code/Vichan
+27 verbose already installed skipping grunt-contrib-less@^0.12.0 /Users/betteyouwill/Code/Vichan
+28 verbose already installed skipping grunt-contrib-watch@^0.6.1 /Users/betteyouwill/Code/Vichan
+29 verbose already installed skipping grunt-jscs@^0.8.1 /Users/betteyouwill/Code/Vichan
+30 verbose already installed skipping grunt-shell@^1.1.1 /Users/betteyouwill/Code/Vichan
+31 verbose already installed skipping jshint-stylish@^1.0.0 /Users/betteyouwill/Code/Vichan
+32 silly resolved []
+33 info build /Users/betteyouwill/Code/Vichan
+34 verbose linkStuff [ false, false, false, '/Users/betteyouwill/Code' ]
+35 info linkStuff VIchan@0.0.0
+36 verbose linkBins VIchan@0.0.0
+37 verbose linkMans VIchan@0.0.0
+38 verbose rebuildBundles VIchan@0.0.0
+39 verbose rebuildBundles [ '.bin',
+39 verbose rebuildBundles   'async',
+39 verbose rebuildBundles   'bcrypt',
+39 verbose rebuildBundles   'bower',
+39 verbose rebuildBundles   'cheerio',
+39 verbose rebuildBundles   'good',
+39 verbose rebuildBundles   'good-console',
+39 verbose rebuildBundles   'grunt',
+39 verbose rebuildBundles   'grunt-cli',
+39 verbose rebuildBundles   'grunt-contrib-clean',
+39 verbose rebuildBundles   'grunt-contrib-copy',
+39 verbose rebuildBundles   'grunt-contrib-jade',
+39 verbose rebuildBundles   'grunt-contrib-jshint',
+39 verbose rebuildBundles   'grunt-contrib-less',
+39 verbose rebuildBundles   'grunt-contrib-watch',
+39 verbose rebuildBundles   'grunt-jscs',
+39 verbose rebuildBundles   'grunt-shell',
+39 verbose rebuildBundles   'hapi',
+39 verbose rebuildBundles   'hapi-auth-basic',
+39 verbose rebuildBundles   'hapi-auth-cookie',
+39 verbose rebuildBundles   'joi',
+39 verbose rebuildBundles   'jshint-stylish',
+39 verbose rebuildBundles   'lout',
+39 verbose rebuildBundles   'mongoose',
+39 verbose rebuildBundles   'request',
+39 verbose rebuildBundles   'underscore' ]
+40 verbose rebuild bundle /Users/betteyouwill/Code/Vichan/node_modules/hapi-auth-basic
+41 info build /Users/betteyouwill/Code/Vichan/node_modules/hapi-auth-basic
+42 info preinstall hapi-auth-basic@1.1.1
+43 verbose linkStuff [ false,
+43 verbose linkStuff   false,
+43 verbose linkStuff   false,
+43 verbose linkStuff   '/Users/betteyouwill/Code/Vichan/node_modules' ]
+44 info linkStuff hapi-auth-basic@1.1.1
+45 verbose linkBins hapi-auth-basic@1.1.1
+46 verbose linkMans hapi-auth-basic@1.1.1
+47 verbose rebuildBundles hapi-auth-basic@1.1.1
+48 verbose rebuildBundles [ 'boom', 'hoek' ]
+49 info install hapi-auth-basic@1.1.1
+50 info postinstall hapi-auth-basic@1.1.1
+51 info install VIchan@0.0.0
+52 info postinstall VIchan@0.0.0
+53 verbose unsafe-perm in lifecycle true
+54 info VIchan@0.0.0 Failed to exec postinstall script
+55 error VIchan@0.0.0 postinstall: `grunt deploy`
+55 error Exit status 6
+56 error Failed at the VIchan@0.0.0 postinstall script.
+56 error This is most likely a problem with the VIchan package,
+56 error not with npm itself.
+56 error Tell the author that this fails on your system:
+56 error     grunt deploy
+56 error You can get their info via:
+56 error     npm owner ls VIchan
+56 error There is likely additional logging output above.
+57 error System Darwin 13.4.0
+58 error command "/usr/local/node/bin/node" "/usr/local/node/bin/npm" "install"
+59 error cwd /Users/betteyouwill/Code/Vichan
+60 error node -v v0.10.32
+61 error npm -v 1.4.28
+62 error code ELIFECYCLE
+63 verbose exit [ 1, true ]
