@@ -7,7 +7,7 @@ var Search  = require('../models/search'),
 
 exports.crawl = {
   handler: function(request, reply){
-    var site = 'http://www.mcdonalds.com/',
+    var site = 'http://www.espn.com/',
     search = new Search({name: 'MySearch', mainUrl: site, images: [], limit: 0, statistics: []});
 
 
@@ -26,7 +26,6 @@ exports.crawl = {
 
           //God help us all.
           async.forEachLimit(urlsArray, 20, function(url, cb){
-            console.log(url);
               search.scrubImages(url, '000000000000000000000001', function(err){
                   cb();
               });

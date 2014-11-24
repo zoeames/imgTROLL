@@ -14,21 +14,6 @@
       h5 Location: {{location}}
       h5 E-mail: {{email}}
       
-  button.ts(ng-click='toggleStuff()') Toggle Crawler
-  .stuffContent(ng-hide='hideStuff', novalidate)
-    div.row
-      div.small-4.columns
-        form(role='form', novalidate, ng-hide='hideStuff', name='stuffForm')
-          .form-group
-            label(for='web') Web
-            input.form-control.stuffContent#web(ng-model='weapon.name', type='text', name='web', autofocus)
-      div.small-4.columns 
-        a.button.secondary.success.alert.crawl(href='#') Crawl
-      div.small-4.columns 
-        form(role='form', novalidate, ng-hide='hideStuff', name='stuffForm')
-          .form-group
-            label(for='web') Depth
-            input.form-control.stuffContent#web(ng-model='weapon.name', type='text', name='web', autofocus)
 
   #middle
     #content

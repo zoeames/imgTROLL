@@ -6,6 +6,6 @@ module.exports = {
   handler: function(request, reply){
     var user = request.auth.credentials;
     delete user.password;
-    reply(user);
+    reply(user || {username: 'anon'});
   }
 };
