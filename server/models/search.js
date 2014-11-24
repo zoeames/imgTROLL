@@ -65,7 +65,7 @@ Search.prototype.depthFinder = function(website, depth, cb){
     if(depth <= 0){
       cb();
     }else{
-      async.forEachLimit(a, 6, function(url, cbOne){
+      async.forEachLimit(a, 3, function(url, cbOne){
         self.depthFinder(url, depth - 1, cbOne);
       }, function(err){
           //console.log('Depth: ', depth);
