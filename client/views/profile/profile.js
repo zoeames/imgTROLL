@@ -24,6 +24,8 @@
       //console.log('scope.photo', JSON.stringify($scope.photo);
       User.update($scope.photo).then(function(response){
         $scope.photo = response.data.profilePic;
+        console.log('response', response);
+        console.log('$scopeusserphoto', $scope.userPhoto);
       });
     };
 
