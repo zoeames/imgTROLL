@@ -7,5 +7,7 @@
           input(ng-model='search.mainUrl', type='text', autofocus)
         .form-group
           label(for='depth') Depth
-          input(ng-model='search.depth', type='text', ng-value='1', autofocus)
-      button.button.secondary.success.alert(ng-click='search()') Search
+          input(ng-model='search.depth', type='number', ng-minlength='1', ng-maxlength='2', required, autofocus)
+      button.button.secondary.success.alert(ng-click='queueSearch()') Search
+      .loading(ng-show='isLoading') Loading...this may take a while
+    {{results | json}}

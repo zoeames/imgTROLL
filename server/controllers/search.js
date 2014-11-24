@@ -7,21 +7,22 @@ var Search  = require('../models/search'),
 
 exports.crawl = {
   handler: function(request, reply){
-    var site = 'http://www.espn.com/',
+    var site = request.payload.mainUrl,
     search = new Search({name: 'MySearch', mainUrl: site, images: [], limit: 0, statistics: []});
 
 
-    search.depthFinder(search.mainUrl, 1, function(depthUrls){
+    search.depthFinder(search.mainUrl, request.payload.depth, function(depthUrls){
       Search.urlValidate(site, function(err, xyz){
         if(err){
           reply('Error- invalid url');
         }else{
+          if(depthUrls === undefined){ return reply({'Error': 'Sorry, they\'ve locked you out. Try again in 5 minutes.'});}
+
           //flatten the array of arrays
           var urlsArray  = _.uniq(_.flatten(depthUrls));
+
           if(urlsArray.length > 75){
             urlsArray = urlsArray.splice(0, 75);
-          }else if(!urlsArray.length){
-            reply('no images founds');
           }
 
           //God help us all.
