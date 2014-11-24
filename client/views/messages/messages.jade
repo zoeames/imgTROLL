@@ -4,11 +4,13 @@ h4 {{title}}
   .col-xs-3
     form(role='form', novalidate, name='MessageForm')
       .form-group
+        input.form-control(type='hidden', value='user._id', ng-model='message.sender')
+      .form-group
         label(for='message') Message
         input.form-control#message(type='text', name='message', ng-model='message.body', autofocus, required)
       .form-group
         label(for='receiver') Receiver
         select.form-control#receiver(name='receiver', ng-model='message.receiver', type='dropdown', required)
-          option(ng-repeat='r in receivers') {{r}}
+          option(ng-repeat='r in receivers') {{r.username}}
       button.btn.btn-primary(ng-click='submit()') Send
   .col-xs-9

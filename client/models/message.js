@@ -5,7 +5,7 @@
     .factory('Message', ['$http', function($http){
 
       function send(message){
-        return $http.post('/messages', {message:message});
+        return $http.post('/messages', message);
       }
 
       function showAll(){
