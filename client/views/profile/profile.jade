@@ -16,6 +16,10 @@
       #show
 
 
+        .img.1.slide(ng-src='assets/')
+          //img(ng-repeat='i in images') {{i}}
+
+
         .img1.slide
           img(src='http://d.asset.soup.io/asset/3834/7869_bfa2_550.jpeg', alt='England')
         .img2.slide
@@ -56,16 +60,14 @@
     table.table.table-bordered
       thead
         tr
-          th(width=250) Date
           th(width=250) Site
           th(width=250) Images
           th(width=250) Chart Data
       tbody
-        tr(n g-repeat= 'search in searches')
-          td {{ u.username}}
-          td {{ u.Age}}
-          td {{ u.location}}
-          td: a.button(ng-click='displayChart()') Click for Chart
+        tr(ng-repeat= 'search in searchHistory')
+          td {{search.mainUrl}}
+          td(ng-click='viewImages(search.images)'): a(href='') View Images
+          td: a.button(ng-click='displayChart(search.statistics)') Click for Chart
   
   .row
     .small-12.columns
