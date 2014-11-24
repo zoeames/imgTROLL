@@ -2,6 +2,6 @@
   'use strict';
 
   angular.module('troll')
-  .controller('CrawlerCtrl', ['$scope', function($scope){
+  .controller('CrawlerCtrl', ['$scope', function($scope, $http){
   }]);
 })();
