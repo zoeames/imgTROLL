@@ -3,11 +3,11 @@
     .searchForm.small-12.columns 
       form(role='form', novalidate)
         .form-group
-          label(for='url') URL
+          label.search(for='url') URL
           input(ng-model='search.mainUrl', type='text', autofocus)
         .form-group
-          label(for='depth') Depth
+          label.search(for='depth') Depth
           input(ng-model='search.depth', type='number', ng-minlength='1', ng-maxlength='2', required, autofocus)
       button.button.secondary.success.alert(ng-click='queueSearch()') Search
       .loading(ng-show='isLoading') Loading...this may take a while
-    {{results | json}}
+    .results{{results | json}}
