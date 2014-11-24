@@ -12,7 +12,8 @@ var mongoose       = require('mongoose'),
       images: [String],
       urlsArray: Array,
       limit: Number,
-      statistics: Array
+      statistics: Array,
+      userId: mongoose.Schema.Types.ObjectId
     }),
     Search = mongoose.model('Search', schema);
 
@@ -147,6 +148,8 @@ Search.prototype.downloadFile = function(weblink, userId, root, cb){
 Search.urlValidate = function(site, cb){
   requestWebsite(site, function(error, response, body){
     cb(error);
+  }).on('error', function(){
+    cb(null);
   });
 };
 

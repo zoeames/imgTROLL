@@ -1,15 +1,13 @@
-button.ts(ng-click='toggleStuff()') Toggle Crawler
-.stuffContent(ng-hide='hideStuff', novalidate)
+.stuffContent
   div.row
-    div.small-4.columns
-      form(role='form', novalidate, ng-hide='hideStuff', name='stuffForm')
+    .searchForm.small-12.columns 
+      form(role='form', novalidate)
         .form-group
-          label(for='web') Web
-          input.form-control.stuffContent#web(ng-model='weapon.name', type='text', name='web', autofocus)
-    div.small-4.columns 
-      a.button.secondary.success.alert.crawl(href='#') Crawl
-    div.small-4.columns 
-      form(role='form', novalidate, ng-hide='hideStuff', name='stuffForm')
+          label(for='url') URL
+          input(ng-model='search.mainUrl', type='text', autofocus)
         .form-group
-          label(for='web') Depth
-          input.form-control.stuffContent#web(ng-model='weapon.name', type='text', name='web', autofocus)
+          label(for='depth') Depth
+          input(ng-model='search.depth', type='number', ng-minlength='1', ng-maxlength='2', required, autofocus)
+      button.button.secondary.success.alert(ng-click='queueSearch()') Search
+      .loading(ng-show='isLoading') Loading...this may take a while
+    {{results | json}}

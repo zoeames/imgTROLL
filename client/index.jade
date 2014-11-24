@@ -13,6 +13,7 @@ html.no-js(ng-app='troll', lang='en')
       link(rel='stylesheet', href='/index.css')
       link(href='assets/keyframes.css', rel='stylesheet')
       link(href='assets/style.css', rel='stylesheet')
+      link(href='/views/showall/showall.css', rel='stylesheet')
       script(src='/vendor/foundation/js/vendor/modernizr.js')
   body(ng-controller='UsersCtrl')
     include views/nav/nav
@@ -23,7 +24,9 @@ html.no-js(ng-app='troll', lang='en')
 
       footer.navbar-default.navbar-fixed-bottom
         .container
-          p: small Copyright &copy; 2014 Nashville Software School. All Rights Reserved.
+          .row
+            .col-xs-12.foot(style='text-align: center')
+              p(style='text-align: center;'): small Copyright &copy; 2014 Nashville Software School. All Rights Reserved.
 
       script(src='/vendor/jquery/dist/jquery.js')
       script(src='/vendor/foundation/js/foundation.min.js')
@@ -38,15 +41,15 @@ html.no-js(ng-app='troll', lang='en')
       script(src='/config/toastr.js')
       script(src='/index.js')
       script(src='/models/user.js')
+      script(src='/models/crawler.js')
+      script(src='/models/message.js')
       script(src='/views/users/users.js')
       script(src='/views/login/login.js')
       script(src='/views/register/register.js')
+      script(src='/views/crawler/crawler.js')
       script(src='/views/nav/nav.js')
       script(src='/views/home/home.js')
       script(src='/views/messages/messages.js')
       script(src='/views/profile/profile.js')
       script(src='/views/showall/showall.js')
       script(src='/views/users/profile.js')
-
-      script.
-         $(document).foundation();

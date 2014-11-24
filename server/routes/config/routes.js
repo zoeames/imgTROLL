@@ -1,6 +1,7 @@
 'use strict';
 var search = require('../../controllers/search');
 
+
 module.exports = [
   {method: 'get',    path: '/{param*}',      config: require('../definitions/general/static')},
   {method: 'post',   path: '/register',      config: require('../definitions/users/post_register')},
@@ -10,11 +11,10 @@ module.exports = [
   {method: 'get',    path: '/profile',       config: require('../definitions/users/profile')},
   {method: 'get',    path: '/users',         config: require('../definitions/users/showall')},
   {method: 'get',    path: '/checkSession',  config: require('../definitions/users/check_session')},
-  {method: 'GET',    path: '/search',        config: search.crawl}
-
+  {method: 'post',    path: '/search',       config: search.crawl},
+  {method: 'post',   path: '/messages',      config: require('../definitions/messages/post_message')},
+  {method: 'get',    path: '/allMessages',      config: require('../definitions/messages/get_allMessages')}
   //{method: 'GET',    path: '/about',         config: ''},
   //{method: 'GET',    path: '/users',         config: ''},
-  //{method: 'POST',   path: '/messages',      config: ''},
-  //{method: 'GET',    path: '/messages',      config: ''},
   //{method: 'GET',    path: '/messages/{id}', config: ''}
 ];
