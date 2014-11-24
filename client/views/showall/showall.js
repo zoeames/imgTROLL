@@ -5,7 +5,6 @@
   .controller('ShowCtrl', ['$scope', 'User', '$http', function($scope, User, $http){
     $scope.users = {};
     User.getAll().then(function(response){
-      debugger;
       console.log('response', response);
       console.log('$scopeusserphoto', $scope.userPhoto);
     });
