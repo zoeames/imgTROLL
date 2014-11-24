@@ -7,11 +7,11 @@ var Search  = require('../models/search'),
 
 exports.crawl = {
   handler: function(request, reply){
+
     var site = request.payload.mainUrl,
-    search = new Search({name: 'MySearch', mainUrl: site, images: [], limit: 0, statistics: [], userId: request.auth.credentials._id});
+    search   = new Search({name: site.split(/http:\/\//)[1], mainUrl: site, images: [], limit: 0, statistics: [], userId: request.auth.credentials._id});
 
-
-    search.depthFinder(search.mainUrl, request.payload.depth, function(depthUrls){
+    search.depthFinder(site, request.payload.depth, function(depthUrls){
       Search.urlValidate(site, function(err, xyz){
         if(err){
           reply('Error- invalid url');

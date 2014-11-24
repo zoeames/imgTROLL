@@ -37,7 +37,6 @@ Search.getImages = function(website, cb){
 
     }
   }).on('error', function(){
-    //console.log('Image timeout.');
     return;
   });
 };
@@ -68,12 +67,10 @@ Search.prototype.depthFinder = function(website, depth, cb){
       async.forEachLimit(a, 3, function(url, cbOne){
         self.depthFinder(url, depth - 1, cbOne);
       }, function(err){
-          //console.log('Depth: ', depth);
           cb(self.urlsArray);
       });
     }
   }).on('error', function(){
-    //console.log('Anchor tag timeout');
     return;
   });
 };
@@ -88,12 +85,12 @@ Search.prototype.scrubImages = function(website, userId, bigCB){
       self.images = _.compact(self.images);
       bigCB();
       clearTimeout(timer);
-    }, 10000);
+    }, 15000);
 
     Search.getImages(website, function(imageLinks){
       self.statistics.push({url: website, images: imageLinks.length || 0});
       async.forEachLimit(imageLinks, 5, function(link, cb){
-        self.downloadFile(link, function(){
+        self.downloadFile(link, userId, self.name, function(){
           cb(null);
         });
       }, function(err){
@@ -105,20 +102,19 @@ Search.prototype.scrubImages = function(website, userId, bigCB){
     });
 };
 
-Search.prototype.downloadFile = function(weblink, cb){
-  var siteName  = extractFilename(weblink),
-      dirName   = 'client/assets/sites/' + siteName,
-//      imagePath = dirName + '/' + root,
-      absPath   = dirName + '/' + this.limit + '.png',
-      relPath   = 'assets/sites/' + siteName + this.limit + '.png',
-      self      = this;
+Search.prototype.downloadFile = function(weblink, userId, root, cb){
+  var dirName   = 'client/assets/img/' + userId,
+      imagePath = dirName + '/' + root,
+      absPath  = imagePath + '/' + this.limit + '.png',
+      relPath  = 'assets/img/' + userId + '/' + root + '/' + this.limit + '.png',
+      self = this;
 
   if(!fs.existsSync(dirName)){fs.mkdirSync(dirName);}
-  //if(!fs.existsSync(imagePath)){fs.mkdirSync(imagePath);}
+  if(!fs.existsSync(imagePath)){fs.mkdirSync(imagePath);}
+
 
   //prevent too many images
   if(this.limit > 300){
-    //console.log('limit reached');
     return cb(null);
   }else{
     this.limit++;
@@ -126,7 +122,6 @@ Search.prototype.downloadFile = function(weblink, cb){
 
   requestWebsite.head({url: weblink, followRedirect: false, maxRedirects: 0, timeout: 3000}, function(err, res, body){
     if(err || !(/^image/).test(res.headers['content-type'])){
-      //console.log('content-type:', res.headers['content-type']);
       return cb(null);
     }else{
       self.images.push(relPath);
@@ -207,13 +202,4 @@ function removeEndingSlash(website){
   }else{
     return website;
   }
-}
-
-function extractFilename(website){
-    var siteArray = website.split('/'),
-    site = siteArray[2];
-    siteArray = site.split('.');
-    site = siteArray.join('-');
-    //console.log('site in extractSiteFilename', site);
-    return site;
 }
