@@ -2,7 +2,7 @@ doctype html
 //if IE 9
   html.lt-ie10(lang='en')
 html.no-js(ng-app='troll', lang='en')
-   head
+  head
       meta(charset='utf-8')
       meta(name='viewport', content='width=device-width, initial-scale=1.0')
       title <img>Troll
@@ -14,20 +14,16 @@ html.no-js(ng-app='troll', lang='en')
       link(href='assets/keyframes.css', rel='stylesheet')
       link(href='assets/style.css', rel='stylesheet')
       script(src='/vendor/foundation/js/vendor/modernizr.js')
-   body(ng-controller='UsersCtrl')
-      .row
-         .small-12.columns
-            include views/nav/nav
-      .row
-         .small-12.columns
-            div(ui-view)
+  body(ng-controller='UsersCtrl')
+    include views/nav/nav
+    .row
+      .small-12.columns
+        div(ui-view)
 
 
       footer.navbar-default.navbar-fixed-bottom
         .container
-          .row
-            .col-xs-12.foot
-              p: small Copyright &copy; 2014 Nashville Software School. All Rights Reserved.
+          p: small Copyright &copy; 2014 Nashville Software School. All Rights Reserved.
 
       script(src='/vendor/jquery/dist/jquery.js')
       script(src='/vendor/foundation/js/foundation.min.js')
