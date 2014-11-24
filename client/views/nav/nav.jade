@@ -12,6 +12,7 @@ nav.top-bar(data-topbar, full-width, role="navigation")
          li: a(ui-sref='register') Register
          li: a(ui-sref='login') Login
       ul.right(ng-show='user.username != "anon"')
+         li: a(ui-sref='crawler') Search
          li: a(ui-sref='profile') Profile
          li: a(ui-sref='users') Users
          li: a(ng-click='logout()') Logout
