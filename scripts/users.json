@@ -1,23 +1,44 @@
 {
-  "_id" : {"$oid":"000000000000000000000001"},
-  "username": "bob",
-  "name":"Bob Boberson",
-  "age":25,
-  "location":"Nashville, TN",
-  "photo":"http://i2.wp.com/www.maas360.com/assets/Uploads/defaultUserIcon.png",
-  "email" : "bob@aol.com",
-  "password" : "$2a$10$XR.IQktUUujLBxed70GQn.jWY1wZ9ThM0Tar9wTqzkI4Uk1uP2Or2",
-  "__v" : 0
+    "_id" : {"$oid":"000000000000000000000001"},
+    "username" : "bob",
+    "password" : "$2a$10$jZduqImSwTbDZWvuUR1DBOkGzJDUJ5aQlapEjS0eE9K1T72Ce0dGO",
+    "profilePic" : "http://i2.wp.com/www.maas360.com/assets/Uploads/defaultUserIcon.png",
+    "age" : 23,
+    "phoneNum" : "510-345-2952",
+    "email" : "bob@aol.com",
+    "location" : "San Francisco, CA",
+    "__v" : 0
 }
-
 {
-  "_id" : {"$oid":"000000000000000000000002"},
-  "username": "bob",
-  "name":"Sue Smith",
-  "age":22,
-  "location":"New York, NY",
-  "photo":"http://i2.wp.com/www.maas360.com/assets/Uploads/defaultUserIcon.png",
-  "email" : "sue@aol.com",
-  "password" : "$2a$10$XR.IQktUUujLBxed70GQn.jWY1wZ9ThM0Tar9wTqzkI4Uk1uP2Or2",
-  "__v" : 0
+    "_id" : {"$oid":"000000000000000000000002"},
+    "username" : "sue",
+    "password" : "$2a$10$O6a1uMzeB8A53qLzlS5JUeT8hQxK7LZ4dt0gN2wfQrFEEjEMKbz0u",
+    "profilePic" : "http://i2.wp.com/www.maas360.com/assets/Uploads/defaultUserIcon.png",
+    "age" : 33,
+    "phoneNum" : "615-696-9696",
+    "email" : "sue@aol.com",
+    "location" : "Franklin, TN",
+    "__v" : 0
+}
+{
+    "_id" : {"$oid":"000000000000000000000003"},
+    "username" : "ron",
+    "password" : "$2a$10$O6a1uMzeB8A53qLzlS5JUeT8hQxK7LZ4dt0gN2wfQrFEEjEMKbz0u",
+    "profilePic" : "http://i2.wp.com/www.maas360.com/assets/Uploads/defaultUserIcon.png",
+    "age" : 55,
+    "phoneNum" : "1-800-555-5656",
+    "email" : "ron@aol.com",
+    "location" : "Atlanta, GA",
+    "__v" : 0
+}
+{
+    "_id" : {"$oid":"000000000000000000000004"},
+    "username" : "sharon",
+    "password" : "$2a$10$O6a1uMzeB8A53qLzlS5JUeT8hQxK7LZ4dt0gN2wfQrFEEjEMKbz0u",
+    "profilePic" : "http://i2.wp.com/www.maas360.com/assets/Uploads/defaultUserIcon.png",
+    "age" : 13,
+    "phoneNum" : "444-444-4444",
+    "email" : "sharon@aol.com",
+    "location" : "New York, NY",
+    "__v" : 0
 }

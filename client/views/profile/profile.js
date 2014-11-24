@@ -1,18 +1,26 @@
+/* global AmCharts */
 (function(){
   'use strict';
 
   angular.module('troll')
-  .controller('ProCtrl', ['$scope', 'User', '$http', 'Crawler', function($scope, User, $http, Crawler){
+
+  .controller('ProCtrl', ['$scope', 'User', '$http', 'Search', 'Crawler', function($scope, User, $http, Search, Crawler){
+    $scope.searchHistory = [];
     $scope.images = [];
 
     Crawler.getImages().then(function(response){
       $scope.images = response.data[0].images;
-      console.log('data[0]>>>', response.data[0]);
+    });
+
+    Search.history().then(function(res){
+        console.log(res.data);
+        $scope.searchHistory = res.data;
+    }, function(){
+        //console.log('No history found.');
     });
 
     $scope.toggleStuff = function(){
       $scope.hideStuff = !!!$scope.hideStuff;
-      $('.stuffContent').addClass('animated zoomIn');
     };
 
     $scope.photo = {};
@@ -26,8 +34,6 @@
       //console.log('scope.photo', JSON.stringify($scope.photo);
       User.update($scope.photo).then(function(response){
         $scope.photo = response.data.profilePic;
-        console.log('response', response);
-        console.log('$scopeusserphoto', $scope.userPhoto);
       });
     };
 
@@ -80,5 +86,34 @@
       var data = canvas.toDataURL('image/png');
       photo.setAttribute('src', data);
     }
+
+    $scope.displayChart = function(data){
+        var chartData = data,
+        chart = new AmCharts.AmSerialChart();
+            chart.dataProvider = chartData;
+            chart.categoryField = 'url';
+            chart.valueField = 'images';
+            chart.angle = 30;
+            chart.depth3D = 8;
+
+        var graph = new AmCharts.AmGraph();
+            graph.valueField = 'images';
+            graph.type = 'column';
+            chart.addGraph(graph);
+            graph.fillColors = '#bf1c25';
+            graph.lineAlpha = 0;
+            graph.fillAlphas = 0.7;
+            graph.balloonText = '[[category]]: <b>[[value]]</b>';
+
+        var categoryAxis = chart.categoryAxis;
+            categoryAxis.autoGridCount  = false;
+            categoryAxis.gridCount = chartData.length;
+            categoryAxis.gridPosition = 'start';
+            categoryAxis.axisColor = '#DADADA';
+            categoryAxis.fillColor = '#FAFAFA';
+            categoryAxis.labelRotation = 90;
+
+        chart.write('chartdiv');
+    };
   }]);
 })();

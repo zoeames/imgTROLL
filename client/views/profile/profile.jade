@@ -1,9 +1,8 @@
 #show-contain(ng-controller='ShowCtrl')
   div.row
     div.small-5.large-4.columns.panel
-      h4.animated.fadeInLeft(style='text-align: center;') {{user.username}}
+      h4.animated.fadeInLeft {{user.username}}
       .picture(style='border-radius: 25%; background-image: url("{{user.profilePic}}"); background-repeat: none; background-size: cover; height: 300px; width: 300px;')
-        
     div.small-1.large-1.columns
     div.small-6.large-7.columns.panel.bio
       h5 Age: {{user.age}}
@@ -55,5 +54,24 @@
   button(ng-click='savePic()') Save Pic?
 
   h2 {{user.photo}}
+  
+  .row
+    .large-9.large-offset-2.columns
+    table.table.table-bordered
+      thead
+        tr
+          th(width=250) Site
+          th(width=250) Images
+          th(width=250) Chart Data
+      tbody
+        tr(ng-repeat= 'search in searchHistory')
+          td {{search.mainUrl}}
+          td(ng-click='viewImages(search.images)'): a(href='') View Images
+          td: a.button(ng-click='displayChart(search.statistics)') Click for Chart
+  
+  .row
+    .small-12.columns
+      #chartdiv(style='width: 840px; height: 1000px; border: 1px solid black;')
+
 
           

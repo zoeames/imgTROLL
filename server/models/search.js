@@ -65,7 +65,7 @@ Search.prototype.depthFinder = function(website, depth, cb){
     if(depth <= 0){
       cb();
     }else{
-      async.forEach(a, function(url, cbOne){
+      async.forEachLimit(a, 6, function(url, cbOne){
         self.depthFinder(url, depth - 1, cbOne);
       }, function(err){
           //console.log('Depth: ', depth);
@@ -93,7 +93,7 @@ Search.prototype.scrubImages = function(website, userId, bigCB){
     Search.getImages(website, function(imageLinks){
       self.statistics.push({url: website, images: imageLinks.length || 0});
       async.forEachLimit(imageLinks, 5, function(link, cb){
-        self.downloadFile(link, userId, self.name, function(){
+        self.downloadFile(link, function(){
           cb(null);
         });
       }, function(err){
@@ -105,14 +105,15 @@ Search.prototype.scrubImages = function(website, userId, bigCB){
     });
 };
 
-Search.prototype.downloadFile = function(weblink, userId, root, cb){
-  var dirName   = 'client/assets/' + userId,
-      imagePath = dirName + '/' + root,
-      absPath  = imagePath + '/' + this.limit + '.png',
-      self = this;
+Search.prototype.downloadFile = function(weblink, cb){
+  var siteName  = extractFilename(weblink),
+      dirName   = 'client/assets/sites/' + siteName,
+//      imagePath = dirName + '/' + root,
+      absPath   = dirName + '/' + this.limit + '.png',
+      self      = this;
 
   if(!fs.existsSync(dirName)){fs.mkdirSync(dirName);}
-  if(!fs.existsSync(imagePath)){fs.mkdirSync(imagePath);}
+  //if(!fs.existsSync(imagePath)){fs.mkdirSync(imagePath);}
 
   //prevent too many images
   if(this.limit > 300){
@@ -207,43 +208,11 @@ function removeEndingSlash(website){
   }
 }
 
-//OLD
-//function checkRoute(link, root){
-//  //relative routes
-//  var re = new RegExp(/^\/[a-zA-Z0-9\-\/]*/);
-//
-//  //check undefined
-//  if(link === undefined){ return; }
-//
-//  if(re.test(link.href)){
-//    return root + link.href.match(re)[0];
-//  }else{
-//    return;
-//  }
-//}
-
-/*
-Search.getLinks = function(website, cb){
-  requestWebsite({url: website, timeout: 3000}, function(error, response, body){
-    if (!error && response.statusCode === 200){
-
-      var $ = cheerio.load(body),
-      anchorTags = $('a'),
-      keys = Object.keys(anchorTags),
-      a = keys.map(function(k, i){
-        if(i > 5){
-          return;
-        }else{
-          return checkRoute(anchorTags[k].attribs, website);
-        }
-      });
-
-      a = _.compact(a);
-      a = _.uniq(a);
-
-      cb(a);
-    }
-  });
-};
-*/
-
+function extractFilename(website){
+    var siteArray = website.split('/'),
+    site = siteArray[2];
+    siteArray = site.split('.');
+    site = siteArray.join('-');
+    //console.log('site in extractSiteFilename', site);
+    return site;
+}
