@@ -14,7 +14,7 @@ html.no-js(ng-app='troll', lang='en')
       link(href='assets/keyframes.css', rel='stylesheet')
       link(href='assets/style.css', rel='stylesheet')
       script(src='/vendor/foundation/js/vendor/modernizr.js')
-   body
+   body(ng-controller='UsersCtrl')
       .row
          .small-12.columns
             include views/nav/nav
@@ -42,6 +42,8 @@ html.no-js(ng-app='troll', lang='en')
       script(src='/index.js')
       script(src='/models/user.js')
       script(src='/views/users/users.js')
+      script(src='/views/login/login.js')
+      script(src='/views/register/register.js')
       script(src='/views/nav/nav.js')
       script(src='/views/home/home.js')
       script(src='/views/messages/messages.js')

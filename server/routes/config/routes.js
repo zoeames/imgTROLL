@@ -9,6 +9,7 @@ module.exports = [
   {method: 'put',    path: '/profile',       config: require('../definitions/users/put_profile')},
   {method: 'get',    path: '/profile',       config: require('../definitions/users/profile')},
   {method: 'get',    path: '/users',         config: require('../definitions/users/showall')},
+  {method: 'get',    path: '/checkSession',  config: require('../definitions/users/check_session')},
   {method: 'GET',    path: '/search',        config: search.crawl}
 
   //{method: 'GET',    path: '/about',         config: ''},

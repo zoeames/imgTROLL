@@ -52,3 +52,9 @@ exports.getAll = {
         });
     }
 };
+
+exports.checkSession = {
+    handler: function(request, reply){
+        console.log(request.auth.session);
+    }
+};

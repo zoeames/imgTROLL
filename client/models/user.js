@@ -2,59 +2,44 @@
   'use strict';
 
   angular.module('troll')
-    // .factory('User', ['$http', function($http){
-    //   function register(user){
-    //     return $http.post('/register', user);
-    //   }
-    //
-    //   function login(user){
-    //     return $http.post('/login', user);
-    //   }
-    //
-    //   function logout(){
-    //     return $http.delete('/logout');
-    //   }
-    //
-    //   function show(){
-    //     return $http.get('/profile');
-    //   }
-    //   function setUser(user){
-    //
-    //   }
-    //
-    //   return {register:register, login:login, logout:logout, show:show};
-    // }]);
     .factory('User', ['$http', function($http){
-      var userobj={};
-      userobj.register = function(user){
+
+      function register(user){
         return $http.post('/register', user);
-      };
+      }
 
-      userobj.login = function(user){
+      function login(user){
         return $http.post('/login', user);
-      };
+      }
 
-      userobj.logout = function(){
+      function logout(){
         return $http.delete('/logout');
-      };
+      }
 
-      userobj.show = function(){
+      function show(){
         return $http.get('/profile');
-      };
+      }
 
-      userobj.setUser = function(user){
-        userobj.user = user;
-      };
-
-      userobj.getAll = function(){
+      function getAll(){
         return $http.get('/users');
-      };
+      }
 
-      userobj.update = function(pic){
+      function update(pic){
         return $http.put('/profile', {profilePic: pic});
-      };
+      }
 
-      return userobj;
+      function checkSession(){
+        return $http.get('/checkSession');
+      }
+
+      return {register:     register,
+              login:        login,
+              logout:       logout,
+              show:         show,
+              getAll:       getAll,
+              update:       update,
+              checkSession: checkSession
+             };
 
     }]);
 

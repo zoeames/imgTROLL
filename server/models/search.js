@@ -36,7 +36,7 @@ Search.getImages = function(website, cb){
 
     }
   }).on('error', function(){
-    console.log('Image timeout.');
+    //console.log('Image timeout.');
     return;
   });
 };
@@ -72,7 +72,7 @@ Search.prototype.depthFinder = function(website, depth, cb){
       });
     }
   }).on('error', function(){
-    console.log('Anchor tag timeout');
+    //console.log('Anchor tag timeout');
     return;
   });
 };
