@@ -41,3 +41,16 @@ exports.crawl = {
 
   }
 };
+
+exports.searchHistory = {
+  handler: function(request, reply){
+    Search.find({userId: request.auth.credentials._id}, function(err, searches){
+      if(searches){
+        reply(searches);
+      }else{
+        reply([]);
+      }
+    });
+
+  }
+};
