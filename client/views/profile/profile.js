@@ -8,12 +8,17 @@
     $scope.searchHistory = [];
     $scope.images = [];
 
+    $scope.currentImageSet = [
+    'assets/img/greenBlurry.jpg',
+    'assets/img/imgTROLL.png'
+    ];
+
+    $scope.viewImages = function(images){
+      $scope.currentImageSet = images;
+    };
 
     Search.history().then(function(res){
-        console.log(res.data);
         $scope.searchHistory = res.data;
-    }, function(){
-        //console.log('No history found.');
     });
 
     $scope.toggleStuff = function(){
@@ -28,7 +33,6 @@
     };
 
     $scope.savePic = function(){
-      //console.log('scope.photo', JSON.stringify($scope.photo);
       User.update($scope.photo).then(function(response){
         $scope.photo = response.data.profilePic;
       });

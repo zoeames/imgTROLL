@@ -15,7 +15,10 @@ html.no-js(ng-app='troll', lang='en')
       link(href='assets/keyframes.css', rel='stylesheet')
       link(href='assets/style.css', rel='stylesheet')
       link(href='/views/showall/showall.css', rel='stylesheet')
+      link(href='/vendor/angular-carousel/dist/angular-carousel.min.css', rel='stylesheet', type='text/css')
       script(src='/vendor/foundation/js/vendor/modernizr.js')
+
+
   body(ng-controller='UsersCtrl')
     include views/nav/nav
     .row
@@ -35,6 +38,8 @@ html.no-js(ng-app='troll', lang='en')
       script(src='/vendor/angular-ui-router/release/angular-ui-router.js')
       script(src='/vendor/localforage/dist/localforage.js')
       script(src='/vendor/angular-localforage/dist/angular-localForage.js')
+      script(src='/vendor/angular-touch/angular-touch.min.js')
+      script(src='/vendor/angular-carousel/dist/angular-carousel.min.js')
       script(src='/vendor/underscore/underscore.js')
       script(src='/vendor/toastr/toastr.js')
       script(src='/vendor/amcharts/dist/amcharts/amcharts.js', type='text/javascript')

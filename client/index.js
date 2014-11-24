@@ -1,10 +1,9 @@
 (function(){
   'use strict';
 
-  angular.module('troll', ['ui.router', 'LocalForageModule'])
+  angular.module('troll', ['ui.router', 'LocalForageModule', 'angular-carousel'])
     .config(['$stateProvider', '$urlRouterProvider', '$localForageProvider', function($stateProvider, $urlRouterProvider, $localForageProvider){
       $urlRouterProvider.otherwise('/');
-
 
       $stateProvider
         .state('home',      {url:'/',              templateUrl:'/views/home/home.html',             controller: 'HomeCtrl'})
