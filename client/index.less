@@ -20,7 +20,10 @@
 @SILVER:  #DDDDDD;
 
 body{
-  background-color: @YELLOW;
+  // background-color: @YELLOW;
+  background-color: #4FA125;
+  background-image: url('/assets/img/background.jpg');
+  background-size: cover;
 }
 
 input.ng-invalid, select.ng-invalid{
@@ -123,29 +126,25 @@ p:hover{
 
 
 
-
-.top-bar{
-  background-image: url('/assets/img/crossword.png');
-}
-
 .titleNav{
   color: black !important;
   font-family: 'Cinzel Decorative', cursive;
 }
+
 .has-form{
   border: 1px solid #008CBA;
 }
 
 h5{
   font-family: 'Lato', sans-serif;
-
+}
 #logo {
   float: left;
   height: 7em;
   margin: .2em 1em 1em 0;
   overflow: hidden;
   width: 12em;
-  top: -.5em;;
+  top: -.5em;
 }
 
 .top-bar {
@@ -153,8 +152,28 @@ h5{
   height: 85px;
   line-height: 45px;
   position: relative;
-  background: #333333;
+  // background: #333333;
   margin-bottom: 0;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
+  border: 1px solid black;
+   /* Safari 4-5, Chrome 1-9 */
+  background: -webkit-gradient(linear, left top, right top, from(#242425), to(#545456));
+
+  /* Safari 5.1, Chrome 10+ */
+  background: -webkit-linear-gradient(left, #545456, #242425);
+
+  /* Firefox 3.6+ */
+  background: -moz-linear-gradient(left, #545456, #242425);
+}
+
+.top-bar-section li:not(.has-form) a:not(.button):hover {
+  background-color: #555555 !important;
+  background: #2B772F !important; }
+
+.navButton{
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
 }
 
 // .foot{
@@ -164,6 +183,88 @@ h5{
 
 
 //--HOVER-EFFECTS--//
+/* Wobble Vertical */
+@-webkit-keyframes wobble-vertical {
+  16.65% {
+    -webkit-transform: translateY(8px);
+    transform: translateY(8px);
+  }
+
+  33.3% {
+    -webkit-transform: translateY(-6px);
+    transform: translateY(-6px);
+  }
+
+  49.95% {
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+  }
+
+  66.6% {
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+  }
+
+  83.25% {
+    -webkit-transform: translateY(1px);
+    transform: translateY(1px);
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes wobble-vertical {
+  16.65% {
+    -webkit-transform: translateY(8px);
+    transform: translateY(8px);
+  }
+
+  33.3% {
+    -webkit-transform: translateY(-6px);
+    transform: translateY(-6px);
+  }
+
+  49.95% {
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+  }
+
+  66.6% {
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+  }
+
+  83.25% {
+    -webkit-transform: translateY(1px);
+    transform: translateY(1px);
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+.wobble-vertical {
+  display: inline-block;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+.wobble-vertical:hover, .wobble-vertical:focus, .wobble-vertical:active {
+  -webkit-animation-name: wobble-vertical;
+  animation-name: wobble-vertical;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}
+
 /* Pop */
 @-webkit-keyframes pop {
   50% {

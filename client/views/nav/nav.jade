@@ -9,8 +9,8 @@ nav.top-bar(data-topbar, role="navigation", ng-controller='NavCtrl')
             span
    section.top-bar-section
       ul.right(ng-hide='username')
-         li: a(ui-sref='register') Register
-         li: a(ui-sref='login') Login
-         li: a(ui-sref='profile') Profile
-         li: a(ui-sref='users') Users
-         li: a(ng-click='logout()') Logout
+         li: a.navButton.wobble-vertical(ui-sref='register') Register
+         li: a.navButton.wobble-vertical(ui-sref='login') Login
+         li: a.navButton.wobble-vertical(ui-sref='profile') Profile
+         li: a.navButton.wobble-vertical(ui-sref='users') Users
+         li: a.navButton.wobble-vertical(ng-click='logout()') Logout

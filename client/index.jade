@@ -1,17 +1,17 @@
 doctype html
-html(ng-app='troll', lang='en')
-  head
-    meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    meta(name='viewport', content='width=device-width, initial-scale=1')
-    title MEANr Template
-    include views/master/stylesheets
-  body
-    div(ns-nav)
-    //- include views/show/show
-    //- include views/master/body
-    //- include views/master/footer
-    //- include views/master/scripts
+//- html(ng-app='troll', lang='en')
+//-   head
+//-     meta(charset='utf-8')
+//-     meta(http-equiv='X-UA-Compatible', content='IE=edge')
+//-     meta(name='viewport', content='width=device-width, initial-scale=1')
+//-     title MEANr Template
+//-     include views/master/stylesheets
+//-   body
+//-     div(ns-nav)
+//-     //- include views/show/show
+//-     //- include views/master/body
+//-     //- include views/master/footer
+//-     //- include views/master/scripts
 
   
 //if IE 9
@@ -29,11 +29,13 @@ html.no-js(ng-app='troll', lang='en')
       link(href='/components/directives/ns-nav/ns-nav.css', rel='stylesheet')
       link(href='assets/keyframes.css', rel='stylesheet')
       link(href='assets/style.css', rel='stylesheet')
+      link(href='animate.css', rel='stylesheet')
       script(src='/vendor/foundation/js/vendor/modernizr.js')
    body
-      .row
-         .small-12.columns
-            include views/nav/nav
+      //- .row
+      //-    .small-12.columns
+      //-       include views/nav/nav
+      include views/nav/nav
       .row
          .small-12.columns
             div(ui-view)
