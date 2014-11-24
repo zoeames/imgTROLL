@@ -9,10 +9,10 @@
     $scope.receivers = ['one', 'two', 'three'];
     $scope.messages = [];
 
-//User.getAll().then(function(response){
-//	debugger;
-//	$scope.receivers = response.data;
-//});
+    //User.getAll().then(function(response){
+    //	debugger;
+    //	$scope.receivers = response.data;
+    //});
 
     $scope.submit = function(){
       Message.send($scope.message).then(function(response){
