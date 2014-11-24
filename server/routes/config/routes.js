@@ -11,7 +11,7 @@ module.exports = [
   {method: 'get',    path: '/profile',       config: require('../definitions/users/profile')},
   {method: 'get',    path: '/users',         config: require('../definitions/users/showall')},
   {method: 'get',    path: '/checkSession',  config: require('../definitions/users/check_session')},
-  {method: 'GET',    path: '/search',        config: search.crawl}
+  {method: 'GET',    path: '/search',        config: search.crawl},
   {method: 'post',   path: '/messages',      config: require('../definitions/messages/post_message')},
   {method: 'get',    path: '/allMessages',      config: require('../definitions/messages/get_allMessages')}
   //{method: 'GET',    path: '/about',         config: ''},
