@@ -3,10 +3,10 @@
 
   angular.module('troll')
   .controller('ProCtrl', ['$scope', 'User', '$http', function($scope, User, $http){
-    var user = User.user;
-    $scope.username = user.username;
     console.log('User.user . . . . ', User.user);
-    console.log($scope.username);
+
+    $scope.user = User.user;
+    $scope.location = $scope.user.location;
 
     $scope.toggleStuff = function(){
       $scope.hideStuff = !!!$scope.hideStuff;
@@ -18,7 +18,6 @@
     $scope.takePhoto = function(){
       takepicture();
       $scope.photo = photo.currentSrc;
-      debugger;
     };
 
 
@@ -26,7 +25,6 @@
       //console.log('scope.photo', JSON.stringify($scope.photo);
       User.update($scope.photo).then(function(response){
         $scope.photo = response.data.profilePic;
-        debugger;
         console.log('response', response);
         console.log('$scopeusserphoto', $scope.userPhoto);
       });

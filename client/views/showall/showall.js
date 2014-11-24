@@ -3,11 +3,12 @@
 
   angular.module('troll')
   .controller('ShowCtrl', ['$scope', 'User', '$http', function($scope, User, $http){
-    $scope.aUser = {};
+    $scope.users = {};
+    User.getAll().then(function(response){
+      debugger;
+      console.log('response', response);
+      console.log('$scopeusserphoto', $scope.userPhoto);
 
-    aUser.getAll().then(function(response){
-    debugger;
-      $scope.aUser = response;
     });
   }]);
 })();
