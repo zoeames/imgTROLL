@@ -12,6 +12,8 @@ module.exports = [
   {method: 'get',    path: '/users',         config: require('../definitions/users/showall')},
   {method: 'get',    path: '/checkSession',  config: require('../definitions/users/check_session')},
   {method: 'post',   path: '/messages',      config: require('../definitions/messages/post_message')},
+  {method: 'GET',    path: '/search',        config: search.crawl},
+  {method: 'get',    path: '/images',       config: search.getImgs},
   {method: 'get',    path: '/allMessages',   config: require('../definitions/messages/get_allMessages')},
   {method: 'get',    path: '/searchHistory', config: search.searchHistory},
   {method: 'post',    path: '/search',       config: search.crawl}

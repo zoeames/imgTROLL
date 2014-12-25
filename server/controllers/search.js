@@ -38,7 +38,14 @@ exports.crawl = {
         }
       }); //Search.urlValidate end
     }); //search.depthFinder end
+  }
+};
 
+exports.getImgs = {
+  handler: function(request, reply){
+    Search.find(function(err, images){
+      reply(images);
+    });
   }
 };
 

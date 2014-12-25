@@ -10,5 +10,6 @@
           input(ng-model='search.depth', type='number', ng-minlength='1', ng-maxlength='2', required, autofocus)
       button.button.secondary.success.alert(ng-click='queueSearch()') Search
       .loading(ng-show='isLoading') Loading...this may take a while
+    
       .loading(ng-show='hasLoaded') Done loading!
       

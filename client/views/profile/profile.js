@@ -3,8 +3,11 @@
   'use strict';
 
   angular.module('troll')
-  .controller('ProCtrl', ['$scope', 'User', '$http', 'Search', function($scope, User, $http, Search){
+
+  .controller('ProCtrl', ['$scope', 'User', '$http', 'Search', 'Crawler', function($scope, User, $http, Search, Crawler){
     $scope.searchHistory = [];
+    $scope.images = [];
+
     $scope.currentImageSet = [
     'assets/img/greenBlurry.jpg',
     'assets/img/imgTROLL.png'

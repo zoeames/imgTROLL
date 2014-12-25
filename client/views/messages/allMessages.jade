@@ -1,3 +1,19 @@
-h2 All Messages
 
-{{messages}}
+//{{messages}}
+
+h4 All Users:
+
+.userTable
+  table.table.table-bordered.center
+    thead
+      tr
+        th(width=250) Sender
+        th Receiver
+        th Body
+        th(width=200) Email
+    tbody
+      tr(ng-repeat='m in messages')
+        td {{m.sender}}
+        td {{m.receiver}}
+        td {{m.body}}
+        td {{u.email}}

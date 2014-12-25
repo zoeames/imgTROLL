@@ -11,7 +11,6 @@
     $scope.receiver = {};
 
     User.checkSession().then(function(response){
-      //debugger;
       $scope.message.sender = response.data.username;
     });
 
