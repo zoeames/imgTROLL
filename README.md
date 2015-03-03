@@ -1,47 +1,38 @@
-## name of project
-### Code Badges
-build status icon
-coverage status icon
+## img<Troll>
 
 ### Screenshots
-![Image1](https://raw.githubusercontent.com/nss-cohort-2014-06-07/express-template/master/docs/screenshots/one.jpg)
-![Image2](https://raw.githubusercontent.com/nss-cohort-2014-06-07/express-template/master/docs/screenshots/two.jpg)
+![Image1](https://raw.githubusercontent.com/zoeames/imgTROLL/master/docs/screenshots/imgTROLL.png)
 
 ### Description
-write a description about your project
+A web crawling app that downloads all photos on the pages it visits. Can go to a depth of 3 without many problems.
 
 ### Models
 ```
-Model 1
+Users
 ```
 
 ```
-Model 2
-```
-
-### Database
-```
-Collecion 1
+Search
 ```
 
 ```
-Collection 2
+Message
 ```
 
 ### Features
-- [x] Feature 1
-- [ ] Feature 2
-- [x] Feature 3
-
-### Running Tests
-```bash
-$ npm install
-$ npm test
-```
+- [x] Users can login
+- [x] Users can register
+- [x] Users can input a website to crawl
+- [x] Users can specify a depth to crawl to
+- [x] All images from a crawl are saved to AWS S3 bucket
 
 ### Contributors
-- [Chyld Medford](https://github.com/chyld)
+- [Zoe Ames](https://github.com/zoeames)
+- [Dave Boling](https://github.com/kadowki)
+- [Sarah Pearson](https://github.com/SarahMPearson)
+- [Matt Keef](https://github.com/mkeef1)
+- [Joy Pratt](https://github.com/JoyP)
+- [Mike Barreiro](https://github.com/MikeBBarreiro)
 
 ### License
 [MIT](LICENSE)
-
